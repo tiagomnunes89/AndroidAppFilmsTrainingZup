@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/layout_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBackground"
+        android:animateLayoutChanges="true">
+
+        <ImageView
+            android:id="@+id/imageView_backArrow"
+            android:layout_width="@dimen/sizeBackArrow"
+            android:layout_height="@dimen/sizeBackArrow"
+            android:layout_marginTop="@dimen/margin_top_arrow"
+            android:layout_marginStart="@dimen/marginLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout_red_toast"
+            app:srcCompat="@drawable/ic_arrow_back_black_24dp"
+            android:contentDescription="@string/imageview_backarrow"/>
+
+        <TextView
+            android:id="@+id/textView_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_header"
+            android:fontFamily="@font/dosis_bold"
+            android:letterSpacing="@dimen/defaultHeaderLetterSpacing"
+            android:text="@string/enterPassword"
+            android:textAlignment="center"
+            android:textColor="@color/colorEmailHeadHint"
+            android:textSize="@dimen/textSizeHeader"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout_red_toast" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/button_sign_in"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_header">
+
+        <TextView
+            android:id="@+id/textView_emailEntered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:fontFamily="@font/robotoregular"
+            android:text="@string/userEmailEntered"
+            android:textAlignment="center"
+            android:textColor="@color/colorTextDefault"
+            android:textSize="@dimen/textSizeDefault" />
+
+        <br.com.estagio.oletrainning.zup.otmovies.components.ErrorEditText
+            android:id="@+id/errorEditText_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="@dimen/marginThirty"
+            android:layout_marginEnd="@dimen/marginThirty"
+            app:setHint="@string/password"
+            app:setInicialErrorVisibility="false"
+            app:setInputType="textPassword">
+
+        </br.com.estagio.oletrainning.zup.otmovies.components.ErrorEditText>
+
+        <TextView
+            android:id="@+id/textView_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginEnd="@dimen/marginThirty"
+            android:fontFamily="@font/robotoregular"
+            android:text="@string/forgotPassword"
+            android:textAlignment="center"
+            android:textColor="@color/colorTextDefault"
+            android:textSize="@dimen/textSizeDefault" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button_sign_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_style"
+            android:fontFamily="@font/dosis_bold"
+            android:layout_margin="@dimen/marginLayout"
+            android:text="@string/enter"
+            android:textColor="@color/colorTextBottonEmailPreLogin"
+            android:textSize="@dimen/textSizeDefault"
+            android:layout_marginBottom="@dimen/marginDefaultLayout"
+            android:layout_marginLeft="@dimen/marginDefaultLayout"
+            android:layout_marginRight="@dimen/marginDefaultLayout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/linearLayout_red_toast"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toastHeight"
+            android:visibility="gone"
+            android:background="@color/colorBorderEmailInputError"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/textView_red_toast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/bigMargin"
+                android:layout_marginStart="@dimen/marginDefault"
+                android:layout_marginTop="@dimen/marginDefault"
+                android:layout_marginEnd="@dimen/marginDefault"
+                android:layout_marginBottom="@dimen/marginDefault"
+                android:fontFamily="@font/robotoregular"
+                android:gravity="center_vertical"
+                android:text="@string/errorUserOrPassword"
+                android:textColor="@color/colorTextWhite"
+                android:textSize="@dimen/textSizeDefault" />
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints"
+            android:visibility="invisible"/>
+
+        <include
+            layout="@layout/loading_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>
+
+
+

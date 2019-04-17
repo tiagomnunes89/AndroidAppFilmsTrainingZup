@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/layout_token"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBackground"
+        android:clipToPadding="false"
+>
+
+        <ImageView
+            android:id="@+id/imageView_backArrow"
+            android:layout_width="@dimen/sizeBackArrow"
+            android:layout_height="@dimen/sizeBackArrow"
+            android:layout_marginTop="@dimen/margin_top_arrow"
+            android:layout_marginStart="@dimen/marginLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_arrow_back_black_24dp"
+            android:contentDescription="@string/imageview_backarrow" />
+
+        <TextView
+            android:id="@+id/textView_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_header"
+            android:fontFamily="@font/dosis_bold"
+            android:letterSpacing="@dimen/defaultHeaderLetterSpacing"
+            android:text="@string/token_sended"
+            android:textAlignment="center"
+            android:textColor="@color/colorEmailHeadHint"
+            android:textSize="@dimen/textSizeHeader"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_emailEntered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/robotobold"
+            android:text="@string/userEmailEntered"
+            android:textAlignment="center"
+            android:textColor="@color/colorTextRed"
+            android:textSize="@dimen/textSizeDefault"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_header" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout_token"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/marginThirty"
+            android:layout_marginBottom="@dimen/marginThirty"
+            app:layout_constraintBottom_toTopOf="@+id/button_validate"
+            app:layout_constraintTop_toBottomOf="@+id/textView_emailEntered"
+            android:paddingLeft="@dimen/marginLayout"
+            android:paddingRight="@dimen/marginLayout">
+
+            <br.com.estagio.oletrainning.zup.otmovies.components.ErrorEditText
+                android:id="@+id/errorEditText_token"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:setHint="@string/tokenValidation"
+                app:setInicialErrorVisibility="false"
+                app:setInputType="text"
+                app:setMessageError="@string/errorCode">
+
+            </br.com.estagio.oletrainning.zup.otmovies.components.ErrorEditText>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/textView_NotReceiveToken"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/robotoregular"
+                    android:text="@string/noReceiveCode"
+                    android:layout_marginEnd="@dimen/marginEnd_textView"
+                    android:layout_marginStart="@dimen/marginStart_textView"
+                    android:textColor="@color/colorTextDefault"
+                    android:textSize="@dimen/textSizeDefault" />
+
+                <TextView
+                    android:id="@+id/textView_ReSendToken"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/robotobold"
+                    android:text="@string/SendAgain"
+                    android:textColor="@color/colorTextRed"
+                    android:textSize="@dimen/textSizeDefault"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/button_validate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_style"
+            android:fontFamily="@font/dosis_bold"
+            android:text="@string/validate"
+            android:textColor="@color/colorTextBottonEmailPreLogin"
+            android:textSize="@dimen/textSizeDefault"
+            android:layout_marginBottom="@dimen/marginDefaultLayout"
+            android:layout_marginLeft="@dimen/marginDefaultLayout"
+            android:layout_marginRight="@dimen/marginDefaultLayout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints"
+            android:visibility="invisible"/>
+
+        <include
+            layout="@layout/loading_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>
+
+
+

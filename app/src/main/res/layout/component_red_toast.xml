@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toast_layout_root"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/toastHeight"
+    android:background="@color/colorBorderEmailInputError"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView_red_toast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/bigMargin"
+        android:layout_marginStart="@dimen/marginDefault"
+        android:layout_marginTop="@dimen/marginDefault"
+        android:layout_marginEnd="@dimen/marginDefault"
+        android:layout_marginBottom="@dimen/marginDefault"
+        android:fontFamily="@font/robotoregular"
+        android:text="@string/errorUserOrPassword"
+        android:textColor="@color/colorTextWhite"
+        android:textSize="@dimen/textSizeDefault"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>

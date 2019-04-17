@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_ErrorTextInputLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorTransparent"
+    android:orientation="vertical">
+
+    <EditText
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:id="@+id/editText_ErrorEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_input"
+        android:fontFamily="@font/robotoregular"
+        android:hint="@string/emailHint"
+        android:padding="@dimen/paddingEditText"
+        android:textSize="@dimen/textSizeDefault"
+        app:layout_constraintBottom_toTopOf="@id/button_nextPreLogin"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_ErrorEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/editText_ErrorEditText"
+        android:layout_marginStart="@dimen/marginDefault"
+        android:layout_marginTop="@dimen/marginDefault"
+        android:layout_marginEnd="@dimen/marginDefault"
+        android:drawableEnd="@drawable/ic_warning_black_24dp"
+        android:fontFamily="@font/robotoregular"
+        android:text="@string/error_email_pre_login"
+        android:textColor="@color/colorTextError"
+        android:textSize="@dimen/textSizeTiny"
+        app:layout_constraintStart_toStartOf="@+id/editText_ErrorEditText"
+        app:layout_constraintTop_toBottomOf="@+id/editText_ErrorEditText" />
+
+</merge>

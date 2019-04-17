@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/layout_PreLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBackground"
+        android:clipToPadding="false">
+
+        <TextView
+            android:id="@+id/textView_headerPreLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_header"
+            android:fontFamily="@font/dosis_bold"
+            android:letterSpacing="@dimen/defaultHeaderLetterSpacing"
+            android:text="@string/textView_EmailHeadHint"
+            android:textAlignment="center"
+            android:textColor="@color/colorEmailHeadHint"
+            android:textSize="@dimen/textSizeHeader"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <br.com.estagio.oletrainning.zup.otmovies.components.ErrorEditText
+            android:id="@+id/errorEditText_enterEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/marginThirty"
+            android:forceHasOverlappingRendering="true"
+            app:layout_constraintBottom_toTopOf="@id/button_nextPreLogin"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView_headerPreLogin"
+            app:setHint="@string/emailHint"
+            app:setInicialErrorVisibility="false"
+            app:setInputType="textEmailAddress"
+            app:setMessageError="@string/error_email_pre_login">
+
+        </br.com.estagio.oletrainning.zup.otmovies.components.ErrorEditText>
+
+        <Button
+            android:id="@+id/button_nextPreLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_style"
+            android:fontFamily="@font/dosis_bold"
+            android:text="@string/textButton_next"
+            android:textColor="@color/colorTextBottonEmailPreLogin"
+            android:textSize="@dimen/textSizeDefault"
+            android:layout_marginBottom="@dimen/marginDefaultLayout"
+            android:layout_marginLeft="@dimen/marginDefaultLayout"
+            android:layout_marginRight="@dimen/marginDefaultLayout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints"
+            android:visibility="invisible"/>    
+
+        <include
+            layout="@layout/loading_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</ScrollView>
+
