@@ -10,10 +10,14 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.sdsmdg.tastytoast.TastyToast;
+
+import java.util.Objects;
 
 import br.com.estagio.oletrainning.zup.otmovies.R;
 import br.com.estagio.oletrainning.zup.otmovies.server.response.FilmResponse;
+import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonTotalResults;
 
 public class FilmAdapter extends PagedListAdapter<FilmResponse, RecyclerView.ViewHolder> {
 
@@ -42,8 +46,9 @@ public class FilmAdapter extends PagedListAdapter<FilmResponse, RecyclerView.Vie
     public FilmAdapter(Context mCtx) {
         super(DIFF_CALLBACK);
         this.mCtx = mCtx;
-    }
 
+
+    }
 
     @Override
     public int getItemViewType(int position) {
@@ -55,7 +60,10 @@ public class FilmAdapter extends PagedListAdapter<FilmResponse, RecyclerView.Vie
     }
 
     private boolean isPositionLoader(int position) {
-        return getItemCount() -1 == position;
+        if(SingletonTotalResults.INSTANCE.getTotalResults() != null){
+            return getItemCount() -1 == position && position != SingletonTotalResults.INSTANCE.getTotalResults()-1;
+        }
+        return false;
     }
 
     @Override
@@ -92,7 +100,7 @@ public class FilmAdapter extends PagedListAdapter<FilmResponse, RecyclerView.Vie
 
                 @Override
                 public boolean areContentsTheSame(FilmResponse oldItem, FilmResponse newItem) {
-                    return oldItem.equals(newItem);
+                    return Objects.equals(oldItem, newItem);
                 }
             };
 }

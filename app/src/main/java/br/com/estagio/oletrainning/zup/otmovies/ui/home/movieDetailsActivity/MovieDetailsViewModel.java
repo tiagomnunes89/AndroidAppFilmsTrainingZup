@@ -29,9 +29,9 @@ public class MovieDetailsViewModel extends BaseViewModel {
 
     private String SERVICE_OR_CONNECTION_ERROR = "Falha ao receber detalhes do filme. Verifique a conexão e tente novamente.";
     private String FILTER_SIMILARITY = "similarity";
-    private Integer MINIMUM_PAGE_SIZE = 1;
-    private Integer INITIAL_LOAD_SIZE_HINT = 5;
-    private Integer PREFETCH_DISTANCE_VALUE = 5;
+    private Integer INITIAL_LOAD_SIZE_HINT = 20;
+    private Integer PREFETCH_DISTANCE_VALUE = 20;
+    private Integer PAGE_SIZE = 20;
 
     private MutableLiveData<Boolean> activityTellerIsSessionExpired = new MutableLiveData<>();
 
@@ -91,15 +91,12 @@ public class MovieDetailsViewModel extends BaseViewModel {
                     new FilmDataSourceFactory(pageSize,
                             String.valueOf(SingletonFilmID.INSTANCE.getID()),FILTER_SIMILARITY);
             liveDataSource = itemDataSourceFactory.getItemLiveDataSource();
-            if(pageSize <= 0){
-                pageSize=MINIMUM_PAGE_SIZE;
-            }
             PagedList.Config config =
                     (new PagedList.Config.Builder())
                             .setEnablePlaceholders(false)
                             .setInitialLoadSizeHint(INITIAL_LOAD_SIZE_HINT)
                             .setPrefetchDistance(PREFETCH_DISTANCE_VALUE)
-                            .setPageSize(pageSize)
+                            .setPageSize(PAGE_SIZE)
                             .build();
             itemPagedList = (new LivePagedListBuilder(itemDataSourceFactory, config)).build();
         }

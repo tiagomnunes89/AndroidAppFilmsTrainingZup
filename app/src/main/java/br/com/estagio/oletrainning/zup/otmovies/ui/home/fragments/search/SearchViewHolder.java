@@ -1,6 +1,7 @@
 package br.com.estagio.oletrainning.zup.otmovies.ui.home.fragments.search;
 
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;

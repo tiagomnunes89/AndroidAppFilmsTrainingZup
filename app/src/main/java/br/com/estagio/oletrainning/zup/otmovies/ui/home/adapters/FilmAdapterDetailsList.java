@@ -13,9 +13,12 @@ import android.view.ViewGroup;
 
 import com.sdsmdg.tastytoast.TastyToast;
 
+import java.util.Objects;
+
 import br.com.estagio.oletrainning.zup.otmovies.R;
 import br.com.estagio.oletrainning.zup.otmovies.model.MovieDetailsModel;
 import br.com.estagio.oletrainning.zup.otmovies.server.response.FilmResponse;
+import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonTotalResults;
 
 public class FilmAdapterDetailsList extends PagedListAdapter<FilmResponse, RecyclerView.ViewHolder> {
 
@@ -49,7 +52,6 @@ public class FilmAdapterDetailsList extends PagedListAdapter<FilmResponse, Recyc
         this.movieDetailsModel = movieDetailsModel;
     }
 
-
     @Override
     public int getItemViewType(int position) {
         if (isPositionHeader(position)){
@@ -66,7 +68,10 @@ public class FilmAdapterDetailsList extends PagedListAdapter<FilmResponse, Recyc
     }
 
     private boolean isPositionLoader(int position) {
-        return getItemCount() -1 == position;
+        if(SingletonTotalResults.INSTANCE.getTotalResults() != null){
+            return getItemCount() -1 == position && position != SingletonTotalResults.INSTANCE.getTotalResults()-1;
+        }
+        return false;
     }
 
     @Override
@@ -111,7 +116,7 @@ public class FilmAdapterDetailsList extends PagedListAdapter<FilmResponse, Recyc
 
                 @Override
                 public boolean areContentsTheSame(FilmResponse oldItem, FilmResponse newItem) {
-                    return oldItem.equals(newItem);
+                    return Objects.equals(oldItem, newItem);
                 }
             };
 }

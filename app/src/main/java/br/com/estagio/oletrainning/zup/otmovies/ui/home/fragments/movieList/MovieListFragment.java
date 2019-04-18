@@ -25,6 +25,7 @@ import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonAlertDialo
 import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonEmail;
 import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonFilmID;
 import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonGenreID;
+import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonTotalResults;
 
 public class MovieListFragment extends BaseFragment {
 
@@ -115,6 +116,7 @@ public class MovieListFragment extends BaseFragment {
         public void onChanged(final FilmsResults filmsResults) {
             movieListViewModel.getItemPagedList().observe(MovieListFragment.this, pagedListObserver);
             movieListViewHolder.recyclerView.setAdapter(adapter);
+            SingletonTotalResults.setTotalResultsEntered(filmsResults.getTotal_results());
             adapter.setOnCheckBoxClickListener(new FilmAdapter.OnCheckBoxClickListener() {
                 @Override
                 public void OnCheckBoxClick(int position, PagedList<FilmResponse> currentList, Boolean isChecked) {

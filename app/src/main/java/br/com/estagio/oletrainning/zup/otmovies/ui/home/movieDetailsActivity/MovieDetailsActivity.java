@@ -32,6 +32,7 @@ import br.com.estagio.oletrainning.zup.otmovies.ui.home.homeActivity.HomeActivit
 import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonAlertDialogSession;
 import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonEmail;
 import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonFilmID;
+import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonTotalResults;
 
 public class MovieDetailsActivity extends BaseActivity {
 
@@ -184,7 +185,7 @@ public class MovieDetailsActivity extends BaseActivity {
         @Override
         public void onChanged(final FilmsResults filmsResults) {
             movieDetailsViewModel.getItemPagedList().observe(MovieDetailsActivity.this, pagedListObserver);
-
+            SingletonTotalResults.setTotalResultsEntered(filmsResults.getTotal_results());
 
         }
     };

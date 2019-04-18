@@ -6,6 +6,10 @@ import android.arch.paging.PagedList;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.behavior.HideBottomViewOnScrollBehavior;
+import android.support.design.bottomappbar.BottomAppBar;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
@@ -26,10 +30,12 @@ import br.com.estagio.oletrainning.zup.otmovies.R;
 import br.com.estagio.oletrainning.zup.otmovies.server.response.FilmResponse;
 import br.com.estagio.oletrainning.zup.otmovies.server.response.FilmsResults;
 import br.com.estagio.oletrainning.zup.otmovies.ui.home.adapters.FilmAdapter;
+import br.com.estagio.oletrainning.zup.otmovies.ui.home.homeActivity.HomeActivity;
 import br.com.estagio.oletrainning.zup.otmovies.ui.home.movieDetailsActivity.MovieDetailsActivity;
 import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonAlertDialogSession;
 import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonEmail;
 import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonFilmID;
+import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonTotalResults;
 
 public class SearchFragment extends Fragment {
 
@@ -128,6 +134,7 @@ public class SearchFragment extends Fragment {
         public void onChanged(final FilmsResults filmsResults) {
             searchViewModel.getItemPagedList().observe(SearchFragment.this, pagedListObserver);
             searchViewHolder.recyclerView.setAdapter(adapter);
+            SingletonTotalResults.setTotalResultsEntered(filmsResults.getTotal_results());
             adapter.setOnCheckBoxClickListener(new FilmAdapter.OnCheckBoxClickListener() {
                 @Override
                 public void OnCheckBoxClick(int position, PagedList<FilmResponse> currentList, Boolean isChecked) {

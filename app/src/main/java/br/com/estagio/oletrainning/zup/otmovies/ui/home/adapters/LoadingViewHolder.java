@@ -8,10 +8,10 @@ import br.com.estagio.oletrainning.zup.otmovies.R;
 
 public class LoadingViewHolder extends RecyclerView.ViewHolder{
 
-    FrameLayout frameLayout;
+    FrameLayout frameLayoutLoad;
 
     public LoadingViewHolder(View view) {
         super(view);
-        frameLayout = view.findViewById(R.id.loading_layout_list);
+        frameLayoutLoad = view.findViewById(R.id.loading_layout_list);
     }
 }

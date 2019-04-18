@@ -20,6 +20,9 @@ import br.com.estagio.oletrainning.zup.otmovies.ui.home.adapters.FilmDataSourceF
 
 public class MovieListViewModel extends BaseViewModel {
 
+    private Integer INITIAL_LOAD_SIZE_HINT = 20;
+    private Integer PREFETCH_DISTANCE_VALUE = 20;
+    private Integer PAGE_SIZE = 20;
     protected FilmRepository filmRepository = new FilmRepository();
     protected FavoriteListRepository favoriteListRepository = new FavoriteListRepository();
     protected String SERVICE_OR_CONNECTION_ERROR = "Falha ao receber filmes. Verifique a conexão e tente novamente.";
@@ -54,9 +57,9 @@ public class MovieListViewModel extends BaseViewModel {
             PagedList.Config config =
                     (new PagedList.Config.Builder())
                             .setEnablePlaceholders(false)
-                            .setInitialLoadSizeHint(20)
-                            .setPrefetchDistance(5)
-                            .setPageSize(filterIDAndPageSize.getPageSize())
+                            .setInitialLoadSizeHint(INITIAL_LOAD_SIZE_HINT)
+                            .setPrefetchDistance(PREFETCH_DISTANCE_VALUE)
+                            .setPageSize(PAGE_SIZE)
                             .build();
 
             itemPagedList = (new LivePagedListBuilder(itemDataSourceFactory, config)).build();
