@@ -21,7 +21,6 @@ import br.com.estagio.oletrainning.zup.otmovies.ui.home.fragments.search.SearchF
 import br.com.estagio.oletrainning.zup.otmovies.ui.preLoginActivity.PreLoginActivity;
 import br.com.estagio.oletrainning.zup.otmovies.R;
 import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonEmail;
-import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonGenreID;
 import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonName;
 
 
@@ -77,7 +76,7 @@ public class HomeActivity extends BaseActivity
 
         SpannableString spannableString = new SpannableString("OT" + "MOVIES");
         spannableString.setSpan(new StyleSpan(Typeface.BOLD), 0, 2, 0);
-        homeActivityViewHolder.titleToobar.setText(spannableString);
+        homeActivityViewHolder.titleToolBar.setText(spannableString);
 
         toggle.syncState();
 
@@ -93,7 +92,7 @@ public class HomeActivity extends BaseActivity
     }
 
     private void setupListener() {
-        homeActivityViewHolder.titleToobar.setOnClickListener(backArrowListener);
+        homeActivityViewHolder.titleToolBar.setOnClickListener(backArrowListener);
         homeActivityViewHolder.bottomNavigationView
                 .setOnNavigationItemSelectedListener(this);
         homeActivityViewHolder.logoutButton.setOnClickListener(logoutOnClickListener);
@@ -137,8 +136,7 @@ public class HomeActivity extends BaseActivity
 
                 break;
             case R.id.navigation_favorite:
-                SingletonGenreID.setGenreIDEntered("-1");
-                pushFragments(TAG_FRAGMENT_FAVORITE,getFavorite());
+                pushFragments(TAG_FRAGMENT_FAVORITE,new FavoriteFragment());
                 break;
             case R.id.navigation_search:
                 pushFragments(TAG_FRAGMENT_SEARCH, getSearch());

@@ -1,214 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_film"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:background="@color/colorTransparent"
+    android:padding="@dimen/marginOrPaddingTen">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorTransparent"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="@dimen/activity_margin"
+        android:background="@android:color/white"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:paddingStart="@dimen/poster_thumb_width"
+        android:paddingTop="@dimen/activity_margin_half"
+        android:paddingEnd="@dimen/paddingItem"
+        android:paddingBottom="@dimen/activity_margin">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginTop="@dimen/activity_margin"
-            android:background="@android:color/white"
-            android:orientation="vertical"
-            android:paddingStart="@dimen/poster_thumb_width"
-            android:paddingLeft="@dimen/poster_thumb_width"
-            android:paddingTop="@dimen/activity_margin_half"
-            android:paddingEnd="@dimen/activity_margin_half"
-            android:paddingRight="@dimen/activity_margin"
-            android:paddingBottom="@dimen/activity_margin">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start">
-
-                <TextView
-                    android:id="@+id/text_title_film"
-                    style="@style/TextAppearance.AppCompat.Subhead"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/activity_margin_content"
-                    android:layout_marginTop="@dimen/activity_margin_quarter"
-                    android:gravity="center_vertical"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    tools:text="Movie Title" />
-
-                <CheckBox
-                    android:id="@+id/checkbox_favorite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginStart="80dp"
-                    android:button="@drawable/check_favorite"
-                    android:checked="false"
-                    android:gravity="center_vertical" />
-
-            </FrameLayout>
-
+            android:layout_gravity="start">
 
             <TextView
-                android:id="@+id/textView_keywords"
-                style="@style/TextAppearance.AppCompat.Caption"
-                android:layout_width="match_parent"
+                android:id="@+id/text_title_film"
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:layout_width="@dimen/titleItemWidth"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_margin_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:alpha="0.38"
-                android:gravity="start"
-                android:maxLines="3"
-                tools:text="Drama, Documentário" />
+                android:layout_marginTop="@dimen/activity_margin_quarter"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="2"
+                tools:text="@string/movieTitleItem" />
 
-            <LinearLayout
-                android:id="@+id/linearLayout_runtimeAndYear"
+            <CheckBox
+                android:id="@+id/checkbox_favorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_margin_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
+                android:layout_gravity="end"
+                android:layout_marginStart="@dimen/marginStartCheckBox"
+                android:button="@drawable/check_favorite"
+                android:checked="false"
+                android:gravity="center_vertical" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="•"
-                    android:textColor="@color/yellow"
-                    android:textSize="15sp" />
+        </FrameLayout>
 
-                <TextView
-                    android:id="@+id/textView_runtime"
-                    style="@style/TextAppearance.AppCompat.Caption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:fontFamily="@font/robotoregular"
-                    android:maxLines="1"
-                    android:textColor="@color/colorBlack"
-                    tools:text="2h 15min" />
 
-                <TextView
-                    android:id="@+id/textView_year"
-                    style="@style/TextAppearance.AppCompat.Caption"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:alpha="0.38"
-                    android:fontFamily="@font/robotobold"
-                    android:maxLines="1"
-                    tools:text="2017" />
+        <TextView
+            android:id="@+id/textView_keywords"
+            style="@style/TextAppearance.AppCompat.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginStartKeywords"
+            android:layout_marginTop="@dimen/marginStandard"
+            android:alpha="@dimen/alphaEffect"
+            android:gravity="start"
+            android:maxLines="3"
+            tools:text="@string/textToolsKeywordsItem" />
 
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="@dimen/activity_margin_content"
-                android:layout_marginTop="8dp"
-                android:alpha="0.4"
-                android:background="@android:color/black" />
+        <LinearLayout
+            android:id="@+id/linearLayout_runtimeAndYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_margin_content"
+            android:layout_marginTop="@dimen/marginStandard"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/movie_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/point"
+                android:textColor="@color/yellow"
+                android:textSize="@dimen/textSizePoint" />
+
+            <TextView
+                android:id="@+id/textView_runtime"
                 style="@style/TextAppearance.AppCompat.Caption"
-                android:layout_width="match_parent"
-                android:layout_height="72dp"
-                android:layout_marginStart="@dimen/activity_margin_content"
-                android:layout_marginLeft="@dimen/activity_margin_content"
-                android:layout_marginTop="@dimen/activity_margin_half"
-                android:ellipsize="end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/marginStandard"
                 android:fontFamily="@font/robotoregular"
-                android:maxLines="5"
-                tools:text="Nowadays, user engagement is considered one of the most important metrics for the success of your app. owadays, user engagement is considered one of the most important metrics for the success of your app" />
-
+                android:maxLines="1"
+                android:textColor="@color/colorBlack"
+                tools:text="@string/textRuntimeItem" />
 
             <TextView
-                android:id="@+id/textView_price"
+                android:id="@+id/textView_year"
                 style="@style/TextAppearance.AppCompat.Caption"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_margin_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="@dimen/marginStandard"
+                android:alpha="@dimen/alphaEffect"
                 android:fontFamily="@font/robotobold"
-                android:gravity="end|bottom"
                 android:maxLines="1"
-                android:textColor="@color/colorPrimary"
-                tools:text="R$ 16,90" />
+                tools:text="@string/textYearItem" />
+
         </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="157dp"
-            android:layout_height="227dp"
-            android:layout_margin="@dimen/activity_margin_half"
-            android:background="@color/colorTransparent"
-            android:elevation="50dp">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/traceHeight"
+            android:layout_marginStart="@dimen/activity_margin_content"
+            android:layout_marginTop="@dimen/marginStandard"
+            android:alpha="@dimen/alphaEffect"
+            android:background="@android:color/black" />
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cardview_poster_item"
+        <TextView
+            android:id="@+id/movie_description"
+            style="@style/TextAppearance.AppCompat.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/descriptionHeight"
+            android:layout_marginStart="@dimen/activity_margin_content"
+            android:layout_marginTop="@dimen/activity_margin_half"
+            android:ellipsize="end"
+            android:fontFamily="@font/robotoregular"
+            android:maxLines="5"
+            tools:text="@string/textDescriptionItem" />
+
+        <TextView
+            android:id="@+id/textView_price"
+            style="@style/TextAppearance.AppCompat.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_margin_content"
+            android:layout_marginTop="@dimen/marginStandard"
+            android:fontFamily="@font/robotobold"
+            android:gravity="end|bottom"
+            android:maxLines="1"
+            android:textColor="@color/colorPrimary"
+            tools:text="@string/textPriceItem" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="@dimen/relativeLayoutItemWidth"
+        android:layout_height="@dimen/relativeLayoutIteHeight"
+        android:layout_margin="@dimen/activity_margin_half"
+        android:background="@color/colorTransparent"
+        android:elevation="@dimen/elevationRelativeItem">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardview_poster_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_margin_half"
+            android:elevation="@dimen/elevationCardView"
+            app:cardBackgroundColor="@color/placeholder_grey"
+            app:cardCornerRadius="@dimen/cardCornerRadiusItem"
+            app:cardPreventCornerOverlap="false">
+
+            <ProgressBar
+                android:id="@+id/movie_progress"
+                style="@style/Widget.AppCompat.ProgressBar"
+                android:layout_width="@dimen/activity_margin"
+                android:layout_height="@dimen/activity_margin"
+                android:layout_gravity="center"
+                android:elevation="@dimen/progressBarItemElevation"
+                android:theme="@style/CircularProgress" />
+
+            <ImageView
+                android:id="@+id/movie_poster"
+                android:layout_width="@dimen/poster_thumb_width"
+                android:layout_height="@dimen/poster_thumb_height"
+                android:contentDescription="@string/moviePosterDescription"
+                android:elevation="@dimen/imageViewItemElevation"
+                android:scaleType="fitXY" />
+
+        </android.support.v7.widget.CardView>
+
+        <FrameLayout
+            android:id="@+id/frameLayout_filmNote"
+            style="@style/Base.AlertDialog.AppCompat.Light"
+            android:layout_width="@dimen/marginThirty"
+            android:layout_height="@dimen/marginThirty"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="end|bottom"
+            android:background="@drawable/ic_yellow_ball"
+            android:elevation="@dimen/frameFilmNoteItemElevation">
+
+            <TextView
+                android:id="@+id/textView_filmNote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/activity_margin_half"
-                android:elevation="-10dp"
-                app:cardBackgroundColor="@color/placeholder_grey"
-                app:cardCornerRadius="3dp"
-                app:cardPreventCornerOverlap="false">
-
-                <ProgressBar
-                    android:id="@+id/movie_progress"
-                    style="@style/Widget.AppCompat.ProgressBar"
-                    android:layout_width="@dimen/activity_margin"
-                    android:layout_height="@dimen/activity_margin"
-                    android:layout_gravity="center"
-                    android:elevation="-15dp"
-                    android:theme="@style/CircularProgress" />
-
-                <ImageView
-                    android:id="@+id/movie_poster"
-                    android:layout_width="@dimen/poster_thumb_width"
-                    android:layout_height="@dimen/poster_thumb_height"
-                    android:elevation="-10dp"
-                    android:scaleType="fitXY" />
-
-            </android.support.v7.widget.CardView>
-
-            <FrameLayout
-                android:id="@+id/frameLayout_filmNote"
-                style="@style/Base.AlertDialog.AppCompat.Light"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_gravity="end|bottom"
-                android:background="@drawable/ic_yellow_ball"
-                android:elevation="10dp"
-                android:outlineAmbientShadowColor="@color/colorBlack"
-                android:outlineSpotShadowColor="@color/colorBlack">
-
-                <TextView
-                    android:id="@+id/textView_filmNote"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|center_horizontal"
-                    android:fontFamily="@font/robotobold"
-                    android:text="6.9"
-                    android:textAlignment="gravity"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="12sp" />
-            </FrameLayout>
-
-
-        </RelativeLayout>
-
-    </FrameLayout>
-
-</LinearLayout>
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:fontFamily="@font/robotobold"
+                tools:text="@string/textFilmNote"
+                android:textAlignment="gravity"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/textSizeDefault" />
+        </FrameLayout>
+    </RelativeLayout>
+</FrameLayout>

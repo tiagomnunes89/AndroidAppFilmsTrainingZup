@@ -26,7 +26,7 @@ android:orientation="vertical">
         android:fontFamily="@font/encodesanssemisondensed_regular"
         android:gravity="center"
         android:textColor="@color/colorTextWhite"
-        android:textSize="20sp" />
+        android:textSize="@dimen/textSizeToolbar" />
 
 </android.support.v7.widget.Toolbar>
 

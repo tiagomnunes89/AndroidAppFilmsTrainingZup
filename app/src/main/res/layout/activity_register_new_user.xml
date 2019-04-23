@@ -7,8 +7,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/Layout_Register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -118,9 +117,9 @@
             android:text="@string/textButton_next"
             android:textColor="@color/colorTextBottonEmailPreLogin"
             android:textSize="@dimen/textSizeDefault"
-            android:layout_marginBottom="@dimen/marginDefaultLayout"
-            android:layout_marginLeft="@dimen/marginDefaultLayout"
-            android:layout_marginRight="@dimen/marginDefaultLayout"
+            android:layout_marginBottom="@dimen/marginOrPaddingDefaultLayout"
+            android:layout_marginLeft="@dimen/marginOrPaddingDefaultLayout"
+            android:layout_marginRight="@dimen/marginOrPaddingDefaultLayout"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

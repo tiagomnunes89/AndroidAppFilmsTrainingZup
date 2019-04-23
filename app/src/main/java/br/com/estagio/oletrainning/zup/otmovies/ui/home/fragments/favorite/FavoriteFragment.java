@@ -5,8 +5,10 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.arch.paging.PagedList;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.Gravity;
@@ -27,15 +29,12 @@ import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonEmail;
 import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonFilmID;
 import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonTotalResults;
 
-public class FavoriteFragment extends BaseFragment {
+public class FavoriteFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private FavoriteViewModel favoriteViewModel;
     private FavoriteViewHolder favoriteViewHolder;
     private FilmAdapter adapter;
     private LinearLayoutManager linearLayoutManager;
-    private String GENRES_FILTER = "genres";
-    private String GENRE_ID = "28";
-    private String FIRST_PAGE = "1";
 
     @Nullable
     @Override
@@ -49,8 +48,9 @@ public class FavoriteFragment extends BaseFragment {
         favoriteViewModel = ViewModelProviders.of(FavoriteFragment.this).get(FavoriteViewModel.class);
 
         favoriteViewModel.getFragmentTellerIsSessionExpired().observe(this, sessionObserver);
-
-        favoriteViewModel.executeServiceGetFilmResults(FIRST_PAGE, GENRE_ID, GENRES_FILTER);
+        if(SingletonEmail.INSTANCE.getEmail() != null){
+            favoriteViewModel.executeServiceGetFilmResults(SingletonEmail.INSTANCE.getEmail());
+        }
 
         return view;
     }
@@ -71,10 +71,25 @@ public class FavoriteFragment extends BaseFragment {
     }
 
     private void setupObserversAndListeners() {
-        favoriteViewModel.getIsMessageSuccessForToast().observe(this,isSuccessMessageForToastObserver);
+        favoriteViewModel.getIsMessageSuccessForToast().observe(this, isSuccessMessageForToastObserver);
         favoriteViewModel.getIsLoading().observe(this, progressBarObserver);
         favoriteViewModel.getFragmentTellerThereIsFilmResults().observe(this, homeTellerThereIsFilmResultsObserver);
         favoriteViewModel.getIsErrorMessageForToast().observe(this, isErrorMessageForToastObserver);
+        favoriteViewHolder.swipeRefreshLayout.setOnRefreshListener(this);
+    }
+
+    @Override
+    public void onRefresh() {
+        if(SingletonEmail.INSTANCE.getEmail() != null){
+            new Handler().postDelayed(new Runnable() {
+                @Override public void run() {
+                    if (favoriteViewHolder.swipeRefreshLayout.isRefreshing()) {
+                        favoriteViewHolder.swipeRefreshLayout.setRefreshing(false);
+                    }
+                }
+            }, 5000);
+            favoriteViewModel.executeServiceGetFilmResults(SingletonEmail.INSTANCE.getEmail());
+        }
     }
 
     private Observer<String> isSuccessMessageForToastObserver = new Observer<String>() {

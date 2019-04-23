@@ -88,4 +88,30 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="favorites">Favoritos</string>
+    <string name="hintSearch">Pesquisar filmes</string>
+    <string name="errorMessageFilmNotFound">Nenhum filme foi encontrado\npara sua pesquisa</string>
+    <string name="movieTitleItem">Movie Title</string>
+    <string name="textToolsKeywordsItem">Drama, Documentário</string>
+    <string name="point">•</string>
+    <string name="textRuntimeItem">2h 15min</string>
+    <string name="textYearItem">2017</string>
+    <string name="textDescriptionItem">Nowadays, user engagement is considered one of the most important metrics for the success of your app. owadays, user engagement is considered one of the most important metrics for the success of your app</string>
+    <string name="textPriceItem">R$ 16,90</string>
+    <string name="textFilmNote">6.9</string>
+    <string name="moviePosterDescription">movie poster</string>
+    <string name="countries">USA, UK</string>
+    <string name="imdb">IMDB</string>
+    <string name="totalNoteFilm">/10</string>
+    <string name="diretor">Diretor:</string>
+    <string name="directorsNames">James Cameron</string>
+    <string name="writer">Escritor:</string>
+    <string name="writersNames">James Cameron</string>
+    <string name="similarOptions">Opções Semelhantes:</string>
+    <string name="movieBannerDescription">movie banner</string>
+    <string name="place_holder_banner_description">place holder banner</string>
+    <string name="banner_navigation_view">banner navigation view</string>
+    <string name="user_photo_border">borda foto usuário</string>
+    <string name="logout">Logout</string>
+    <string name="icon_logout">ícone saída</string>
 </resources>

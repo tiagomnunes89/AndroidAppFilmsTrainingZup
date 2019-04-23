@@ -32,11 +32,11 @@
     <dimen name="toastHeight">50dp</dimen>
     <dimen name="ninetySix">96dp</dimen>
     <dimen name="marginTwentyEight">28dp</dimen>
-    <dimen name="marginDefaultLayout">30dp</dimen>
+    <dimen name="marginOrPaddingDefaultLayout">30dp</dimen>
     <dimen name="marginHeaderTopLayout">70dp</dimen>
     <dimen name="progressBar_height">8dp</dimen>
     <dimen name="progressBar_marginTopAdjust">-3dp</dimen>
-    <dimen name="marginEnd_textView">10dp</dimen>
+    <dimen name="marginOrPaddingTen">10dp</dimen>
     <dimen name="marginStart_textView">8dp</dimen>
     <dimen name="marginTop_ErrorEditText">16dp</dimen>
     <dimen name="smallMargin">8dp</dimen>
@@ -50,7 +50,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="activity_margin">16dp</dimen>
     <dimen name="paddingItemDecorationDefault">8dp</dimen>
-    <dimen name="paddingItemDecorationEdge">24dp</dimen>
+    <dimen name="paddingItem">24dp</dimen>
     <dimen name="activity_margin_content">24dp</dimen>
     <dimen name="activity_margin_half">8dp</dimen>
     <dimen name="poster_thumb_width">144dp</dimen>
@@ -58,4 +58,40 @@
     <dimen name="activity_margin_quarter">4dp</dimen>
     <dimen name="margin_top_details">4dp</dimen>
     <dimen name="marginStartDetails">14dp</dimen>
+    <dimen name="marginStartEmail">45dp</dimen>
+    <dimen name="textSizeToolbar">20sp</dimen>
+    <dimen name="cardElevation">3dp</dimen>
+    <dimen name="midMargin">12dp</dimen>
+    <dimen name="textSizeSubtitle">16sp</dimen>
+    <dimen name="marginEndPositionLogo">50dp</dimen>
+    <dimen name="marginOrPaddingTwenty">20dp</dimen>
+    <dimen name="titleItemWidth">120dp</dimen>
+    <dimen name="marginStartCheckBox">80dp</dimen>
+    <dimen name="marginStartKeywords">32dp</dimen>
+    <dimen name="alphaEffect">.38</dimen>
+    <dimen name="textSizePoint">15sp</dimen>
+    <dimen name="singleLine">1</dimen>
+    <dimen name="traceHeight">1dp</dimen>
+    <dimen name="descriptionHeight">72dp</dimen>
+    <dimen name="relativeLayoutItemWidth">157dp</dimen>
+    <dimen name="relativeLayoutIteHeight">227dp</dimen>
+    <dimen name="elevationRelativeItem">50dp</dimen>
+    <dimen name="elevationCardView">-10dp</dimen>
+    <dimen name="cardCornerRadiusItem">3dp</dimen>
+    <dimen name="progressBarItemElevation">-15dp</dimen>
+    <dimen name="imageViewItemElevation">-10dp</dimen>
+    <dimen name="frameFilmNoteItemElevation">10dp</dimen>
+    <dimen name="negativeMarginTop">-20dp</dimen>
+    <dimen name="frameDetailsWidth">50dp</dimen>
+    <dimen name="frameDetailsHeight">20dp</dimen>
+    <dimen name="paddingTopPoster">-10dp</dimen>
+    <dimen name="bannerCardElevation">-3dp</dimen>
+    <dimen name="hundredElevation">100dp</dimen>
+    <dimen name="marginTopBackgroundUserPhoto">121dp</dimen>
+    <dimen name="marginHundred">100dp</dimen>
+    <dimen name="marginBigger">125dp</dimen>
+    <dimen name="marginMax">230dp</dimen>
+    <dimen name="noCornerRadius">0dp</dimen>
+
+
 </resources>

@@ -10,8 +10,7 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        app:cardElevation="3dp"
-        app:cardCornerRadius="0dp"
+        app:cardElevation="@dimen/cardElevation"
         android:backgroundTint="@color/colorPrimary"
         android:layout_height="wrap_content">
 
@@ -20,11 +19,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:closeIcon="@drawable/ic_close"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/activity_margin_half"
             android:backgroundTint="@color/white"
             android:background="@drawable/border_input"
             android:inputType="text"
-            app:defaultQueryHint="Pesquisar filmes"/>
+            app:defaultQueryHint="@string/hintSearch"/>
 
     </android.support.v7.widget.CardView>
 
@@ -43,10 +42,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="18sp"
+            android:textSize="@dimen/textSizeHeader"
             android:fontFamily="@font/dosis_bold"
             android:visibility="gone"
-            android:text="Nenhum filme foi encontrado\npara sua pesquisa"/>
+            android:text="@string/errorMessageFilmNotFound"/>
 
     </RelativeLayout>
 

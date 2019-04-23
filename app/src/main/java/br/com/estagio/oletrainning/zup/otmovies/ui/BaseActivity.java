@@ -14,6 +14,8 @@ import android.widget.ProgressBar;
 
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.ThreeBounce;
+
+import br.com.estagio.oletrainning.zup.otmovies.ui.home.fragments.favorite.FavoriteFragment;
 import br.com.estagio.oletrainning.zup.otmovies.ui.preLoginActivity.PreLoginActivity;
 import br.com.estagio.oletrainning.zup.otmovies.R;
 

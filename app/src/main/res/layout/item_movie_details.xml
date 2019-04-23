@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorBackground"
@@ -18,21 +18,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <FrameLayout
-                android:id="@+id/frame_layout_movie_details"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/cardview_banner_details"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="-20dp"
-                android:layout_marginEnd="16dp"
-                android:orientation="vertical"
-                app:layout_collapseMode="pin">
-
                 <RelativeLayout
+                    android:id="@+id/relative_layout_movie_details"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cardview_banner_details"
+                    android:layout_marginStart="@dimen/bigMargin"
+                    android:layout_marginTop="@dimen/negativeMarginTop"
+                    android:layout_marginEnd="@dimen/bigMargin"
+                    android:orientation="vertical"
+                    app:layout_collapseMode="pin">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -41,7 +36,8 @@
                         android:background="@color/colorTransparent"
                         android:orientation="vertical"
                         android:paddingStart="@dimen/poster_thumb_width"
-                        android:paddingBottom="@dimen/activity_margin">
+                        android:paddingBottom="@dimen/activity_margin"
+                        tools:ignore="RtlSymmetry">
 
                         <TextView
                             android:id="@+id/text_title_details"
@@ -50,25 +46,24 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/marginStartDetails"
-                            android:layout_marginTop="12dp"
+                            android:layout_marginTop="@dimen/midMargin"
                             android:ellipsize="end"
                             android:maxLines="2"
-                            android:text="Movie Title"
+                            android:text="@string/movieTitleItem"
                             android:textColor="@color/colorBlack"
-                            android:textSize="18dp" />
+                            android:textSize="@dimen/textSizeHeader" />
 
                         <TextView
                             android:id="@+id/textView_keywords_details"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/marginStartDetails"
-                            android:layout_marginLeft="8dp"
+                            android:layout_marginStart="@dimen/marginStartKeywords"
                             android:layout_marginTop="@dimen/margin_top_details"
-                            android:alpha="0.38"
+                            android:alpha="@dimen/alphaEffect"
                             android:ellipsize="end"
                             android:gravity="start"
                             android:maxLines="1"
-                            android:text="Drama, Documentário"
+                            android:text="@string/textToolsKeywordsItem"
                             android:textColor="@color/colorBlack" />
 
                         <LinearLayout
@@ -83,20 +78,18 @@
                                 android:id="@+id/textView_year_details"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="2019"
+                                android:text="@string/textYearItem"
                                 android:textColor="@color/colorBlack" />
 
                             <TextView
                                 android:id="@+id/textView_countries_details"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
+                                android:layout_marginStart="@dimen/marginStandard"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="USA, UK"
+                                android:text="@string/countries"
                                 android:textColor="@color/colorBlack" />
-
-
                         </LinearLayout>
 
                         <LinearLayout
@@ -108,9 +101,9 @@
                             android:orientation="horizontal">
 
                             <FrameLayout
-                                android:layout_width="50dp"
-                                android:layout_height="20dp"
-                                android:layout_marginEnd="8dp"
+                                android:layout_width="@dimen/frameDetailsWidth"
+                                android:layout_height="@dimen/frameDetailsHeight"
+                                android:layout_marginEnd="@dimen/marginStandard"
                                 android:background="@drawable/imdb_icon">
 
                                 <TextView
@@ -118,7 +111,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:gravity="center"
-                                    android:text="IMDB"
+                                    android:text="@string/imdb"
                                     android:textColor="@color/colorTextWhite" />
 
                             </FrameLayout>
@@ -127,16 +120,16 @@
                                 android:id="@+id/textView_points_details"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="7.9"
+                                android:text="@string/textFilmNote"
                                 android:textColor="@color/colorBlack" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:alpha="0.38"
+                                android:alpha="@dimen/alphaEffect"
                                 android:fontFamily="@font/robotoregular"
                                 android:maxLines="2"
-                                android:text="/10"
+                                android:text="@string/totalNoteFilm"
                                 android:textColor="@color/colorBlack" />
 
                             <TextView
@@ -147,7 +140,7 @@
                                 android:alpha="0.38"
                                 android:fontFamily="@font/robotoregular"
                                 android:maxLines="1"
-                                android:text="2h 15min"
+                                tools:text="@string/textRuntimeItem"
                                 android:textColor="@color/colorBlack" />
 
                         </LinearLayout>
@@ -167,7 +160,7 @@
                                 android:alpha="0.38"
                                 android:fontFamily="@font/robotoregular"
                                 android:maxLines="1"
-                                android:text="Diretor: "
+                                android:text="@string/diretor"
                                 android:textColor="@color/colorBlack" />
 
                             <TextView
@@ -176,7 +169,7 @@
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="James Cameron"
+                                android:text="@string/directorsNames"
                                 android:textColor="@color/colorBlack" />
 
                         </LinearLayout>
@@ -195,7 +188,7 @@
                                 android:alpha="0.38"
                                 android:fontFamily="@font/robotoregular"
                                 android:maxLines="1"
-                                android:text="Escritor: "
+                                android:text="@string/writer"
                                 android:textColor="@color/colorBlack" />
 
                             <TextView
@@ -204,7 +197,7 @@
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="James Cameron"
+                                android:text="@string/writersNames"
                                 android:textColor="@color/colorBlack" />
 
                         </LinearLayout>
@@ -225,11 +218,11 @@
                         android:id="@+id/cardview_poster_details"
                         android:layout_width="@dimen/poster_thumb_width"
                         android:layout_height="@dimen/poster_thumb_height"
-                        android:layout_marginRight="@dimen/activity_margin_half"
-                        android:paddingTop="-10dp"
+                        android:layout_marginEnd="@dimen/activity_margin_half"
+                        android:paddingTop="@dimen/paddingTopPoster"
                         app:cardBackgroundColor="@color/placeholder_grey"
-                        app:cardCornerRadius="3dp"
-                        app:cardElevation="3dp"
+                        app:cardCornerRadius="@dimen/cardCornerRadiusItem"
+                        app:cardElevation="@dimen/cardCornerRadiusItem"
                         app:cardPreventCornerOverlap="false">
 
                         <ProgressBar
@@ -244,7 +237,8 @@
                             android:id="@+id/imageView_poster_details"
                             android:layout_width="@dimen/poster_thumb_width"
                             android:layout_height="@dimen/poster_thumb_height"
-                            android:scaleType="fitXY" />
+                            android:scaleType="fitXY"
+                            android:contentDescription="@string/moviePosterDescription"/>
 
                     </android.support.v7.widget.CardView>
 
@@ -258,32 +252,31 @@
                         android:ellipsize="end"
                         android:fontFamily="@font/robotoregular"
                         android:gravity="clip_horizontal"
-                        android:maxLines="8"
-                        android:text="Nowadays, user engagement is considered one of the most important metrics for the success of your app. owadays, user engagement is considered one of the most important metrics for the success of your app"
+                        android:text="@string/textDescriptionItem"
                         android:textColor="@color/colorBlack" />
 
                 </RelativeLayout>
 
-            </FrameLayout>
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cardview_banner_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="-3dp">
+                app:cardElevation="@dimen/bannerCardElevation">
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
+                    android:contentDescription="@string/place_holder_banner_description"
                     android:scaleType="centerCrop"
                     android:src="@drawable/banner_placeholder_background" />
 
                 <ProgressBar
                     android:id="@+id/movie_progress_banner"
                     style="@style/Widget.AppCompat.ProgressBar"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
+                    android:layout_width="@dimen/marginTwentyEight"
+                    android:layout_height="@dimen/marginTwentyEight"
                     android:layout_gravity="center"
                     android:theme="@style/CircularProgress" />
 
@@ -292,6 +285,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
+                    android:contentDescription="@string/movieBannerDescription"
                     android:scaleType="centerCrop" />
 
             </android.support.v7.widget.CardView>
@@ -301,11 +295,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="12dp"
-        android:alpha="0.38"
-        android:text="Opções Semelhantes:"
+        android:layout_marginStart="@dimen/activity_margin"
+        android:layout_marginTop="@dimen/activity_margin"
+        android:layout_marginBottom="@dimen/midMargin"
+        android:alpha="@dimen/alphaEffect"
+        android:text="@string/similarOptions"
         android:textColor="@color/colorBlack" />
 
 </LinearLayout>

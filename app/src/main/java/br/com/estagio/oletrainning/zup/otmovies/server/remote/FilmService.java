@@ -26,7 +26,7 @@ public interface FilmService {
     Call<MovieDetailsModel> getMovieDetails(@Path("id") int id);
 
     @GET("users/{email}/favorits")
-    Call<FilmsResults> getFavoriteList(@Path("email") String email);
+    Call<FilmsResults> getFavoriteList(@Path("email") String email,@Query("page") Integer page, @Query("amount") String amount);
 
     @POST("users/{email}/favorits/{movieId}")
     Call<Void> addFavotiteFilm(@Path("email") String email,@Path("movieId") String movieID);

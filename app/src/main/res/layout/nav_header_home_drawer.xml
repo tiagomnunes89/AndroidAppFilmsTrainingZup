@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout_navView"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -13,6 +14,7 @@
         android:scaleType="centerCrop"
         android:gravity="bottom"
         android:orientation="vertical"
+        android:contentDescription="@string/banner_navigation_view"
         android:theme="@style/ThemeOverlay.AppCompat.Dark"/>
 
 
@@ -20,14 +22,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="121dp"
+        android:contentDescription="@string/user_photo_border"
+        android:layout_marginTop="@dimen/marginTopBackgroundUserPhoto"
         android:background="@drawable/ic_white_ball"/>
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="125dp"
+        android:layout_width="@dimen/marginHundred"
+        android:layout_height="@dimen/marginHundred"
+        android:layout_marginTop="@dimen/marginBigger"
         android:layout_gravity="center_horizontal"
         android:contentDescription="@string/nav_header_desc"
         app:srcCompat="@drawable/ic_user" />
@@ -35,7 +38,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="230dp"
+        android:layout_marginTop="@dimen/marginMax"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
@@ -43,7 +46,7 @@
             android:id="@+id/textview_nav_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="@dimen/textSizeHeader"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
             android:text="@string/nav_header_title"
             android:fontFamily="@font/dosis_bold"
@@ -56,21 +59,23 @@
             android:text="@string/nav_header_subtitle" />
 
         <LinearLayout
-            android:id="@+id/linearLayout_logout"
+            android:id="@+id/linear_Layout_logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginTop="70dp"
-            android:paddingStart="30dp"
-            android:paddingEnd="20dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="@dimen/marginHeaderTopLayout"
+            android:paddingStart="@dimen/marginOrPaddingDefaultLayout"
+            android:paddingEnd="@dimen/marginOrPaddingTwenty"
+            android:paddingTop="@dimen/marginOrPaddingTwenty"
+            android:paddingBottom="@dimen/marginOrPaddingTwenty"
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
+                android:contentDescription="@string/icon_logout"
                 android:src="@drawable/ic_logout_24dp"/>
 
             <TextView
@@ -78,17 +83,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:textSize="18sp"
+                android:textSize="@dimen/textSizeHeader"
                 android:fontFamily="@font/dosis_bold"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="@dimen/marginOrPaddingTen"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:text="Logout"/>
-
-
+                android:text="@string/logout"/>
         </LinearLayout>
     </LinearLayout>
-
-
-
-
 </FrameLayout>
