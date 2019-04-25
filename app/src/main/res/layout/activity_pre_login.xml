@@ -56,8 +56,8 @@
             android:textColor="@color/colorTextBottonEmailPreLogin"
             android:textSize="@dimen/textSizeDefault"
             android:layout_marginBottom="@dimen/marginOrPaddingDefaultLayout"
-            android:layout_marginLeft="@dimen/marginOrPaddingDefaultLayout"
-            android:layout_marginRight="@dimen/marginOrPaddingDefaultLayout"
+            android:layout_marginStart="@dimen/marginLayout"
+            android:layout_marginEnd="@dimen/marginLayout"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
