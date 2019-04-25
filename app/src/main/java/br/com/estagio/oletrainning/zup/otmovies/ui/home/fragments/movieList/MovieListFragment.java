@@ -12,7 +12,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.ThreeBounce;
 import com.sdsmdg.tastytoast.TastyToast;
 
 import br.com.estagio.oletrainning.zup.otmovies.ui.BaseFragment;
@@ -48,10 +53,16 @@ public class MovieListFragment extends BaseFragment {
         movieListViewModel = ViewModelProviders.of(MovieListFragment.this).get(MovieListViewModel.class);
         movieListViewModel.getFragmentTellerIsSessionExpired().observe(this, sessionObserver);
 
-        if(SingletonGenreID.INSTANCE.getGenreID() != null){
-            movieListViewModel.executeServiceGetFilmResults(FIRST_PAGE, SingletonGenreID.INSTANCE.getGenreID(),GENRES_FILTER);
+        if (SingletonGenreID.INSTANCE.getGenreID() != null) {
+            movieListViewModel.executeServiceGetFilmResults(FIRST_PAGE, SingletonGenreID.INSTANCE.getGenreID(), GENRES_FILTER);
         }
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        movieListViewModel.getIsLoading().setValue(false);
     }
 
     @Override
@@ -70,7 +81,7 @@ public class MovieListFragment extends BaseFragment {
     }
 
     private void setupObserversAndListeners() {
-        movieListViewModel.getIsMessageSuccessForToast().observe(this,isSuccessMessageForToastObserver);
+        movieListViewModel.getIsMessageSuccessForToast().observe(this, isSuccessMessageForToastObserver);
         movieListViewModel.getIsLoading().observe(this, progressBarObserver);
         movieListViewModel.getFragmentTellerThereIsFilmResults().observe(this, homeTellerThereIsFilmResultsObserver);
         movieListViewModel.getIsErrorMessageForToast().observe(this, isErrorMessageForToastObserver);
@@ -108,6 +119,7 @@ public class MovieListFragment extends BaseFragment {
         @Override
         public void onChanged(@Nullable PagedList<FilmResponse> filmResponses) {
             adapter.submitList(filmResponses);
+            movieListViewModel.getIsLoading().setValue(false);
         }
     };
 
@@ -121,7 +133,7 @@ public class MovieListFragment extends BaseFragment {
                 @Override
                 public void OnCheckBoxClick(int position, PagedList<FilmResponse> currentList, Boolean isChecked) {
                     SingletonFilmID.setIDEntered(currentList.get(position).getId());
-                    if(isChecked){
+                    if (isChecked) {
                         movieListViewModel.executeAddFavoriteFilm(SingletonEmail.INSTANCE.getEmail(),
                                 String.valueOf(SingletonFilmID.INSTANCE.getID()));
                     } else {
@@ -133,19 +145,14 @@ public class MovieListFragment extends BaseFragment {
             adapter.setOnItemClickListener(new FilmAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(int position, PagedList<FilmResponse> currentList) {
-                    Log.d("position",String.valueOf(position));
-                    if (filmsResults != null) {
-                        movieListViewModel.getIsLoading().setValue(true);
-                        SingletonFilmID.setIDEntered(currentList.get(position).getId());
-                        if(SingletonFilmID.INSTANCE.getID() != null){
-                            Intent intent = new Intent(getActivity(), MovieDetailsActivity.class);
-                            startActivity(intent);
-                        }
-                        movieListViewModel.getIsLoading().setValue(false);
+                    movieListViewModel.getIsLoading().setValue(true);
+                    SingletonFilmID.setIDEntered(currentList.get(position).getId());
+                    if (SingletonFilmID.INSTANCE.getID() != null) {
+                        Intent intent = new Intent(getActivity(), MovieDetailsActivity.class);
+                        startActivity(intent);
                     }
                 }
             });
-            movieListViewModel.getIsLoading().setValue(false);
         }
     };
 

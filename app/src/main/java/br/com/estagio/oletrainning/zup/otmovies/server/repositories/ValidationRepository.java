@@ -15,7 +15,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ValidationRepository  extends CommonRepository{
+public class ValidationRepository  extends BaseRepository {
 
     private ValidationServices validationServices;
 

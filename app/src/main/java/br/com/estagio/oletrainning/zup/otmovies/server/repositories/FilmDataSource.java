@@ -23,7 +23,13 @@ public class FilmDataSource extends PageKeyedDataSource<Integer, FilmResponse> {
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, FilmResponse> callback) {
-        filmRepository.getFilmsResultsLoadInitial(callback,String.valueOf(FIRST_PAGE),genreID, FILTER);
+        try {
+            requestDelay.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        filmRepository.getFilmsResultsLoadInitial(callback, String.valueOf(FIRST_PAGE), genreID, FILTER);
+
     }
 
     @Override
@@ -33,7 +39,7 @@ public class FilmDataSource extends PageKeyedDataSource<Integer, FilmResponse> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        filmRepository.getFilmsResultsLoadBefore(params,callback,genreID, FILTER);
+        filmRepository.getFilmsResultsLoadBefore(params, callback, genreID, FILTER);
     }
 
     @Override
@@ -43,6 +49,6 @@ public class FilmDataSource extends PageKeyedDataSource<Integer, FilmResponse> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        filmRepository.getFilmsResultsloadAfter(PAGE_SIZE,params,callback,genreID, FILTER);
+        filmRepository.getFilmsResultsLoadAfter(PAGE_SIZE, params, callback, genreID, FILTER);
     }
 }

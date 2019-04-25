@@ -57,7 +57,7 @@
                             android:id="@+id/textView_keywords_details"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/marginStartKeywords"
+                            android:layout_marginStart="@dimen/marginStartDetails"
                             android:layout_marginTop="@dimen/margin_top_details"
                             android:alpha="@dimen/alphaEffect"
                             android:ellipsize="end"

@@ -25,7 +25,7 @@
                 android:fontFamily="@font/encodesanssemisondensed_regular"
                 android:textSize="@dimen/textSizeToolbar"
                 android:gravity="center"
-                android:layout_marginEnd="@dimen/marginEndPositionLogo"
+                android:layout_marginEnd="@dimen/marginFifty"
                 android:layout_marginStart="@dimen/marginOrPaddingTwenty"
                 android:textColor="@color/colorTextWhite"/>
 

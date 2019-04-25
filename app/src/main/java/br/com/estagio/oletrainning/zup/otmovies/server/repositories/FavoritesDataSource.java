@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 
 import br.com.estagio.oletrainning.zup.otmovies.server.response.FilmResponse;
 
-
 public class FavoritesDataSource extends PageKeyedDataSource<Integer, FilmResponse> {
 
     private int PAGE_SIZE;

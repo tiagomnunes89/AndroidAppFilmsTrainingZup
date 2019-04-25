@@ -19,9 +19,9 @@ import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonEmail;
 
 public class FavoriteViewModel extends BaseViewModel {
 
-    private final static Integer INITIAL_LOAD_SIZE_HINT = 20;
-    private final static Integer PREFETCH_DISTANCE_VALUE = 20;
-    private final static Integer PAGE_SIZE = 20;
+    private final static Integer INITIAL_LOAD_SIZE_HINT = 10;
+    private final static Integer PREFETCH_DISTANCE_VALUE = 10;
+    private final static Integer PAGE_SIZE = 5;
     private FavoriteListRepository favoriteListRepository = new FavoriteListRepository();
     private final static String SERVICE_OR_CONNECTION_ERROR = "Falha ao receber filmes. Verifique a conexão e tente novamente.";
     private LiveData<PagedList<FilmResponse>> itemPagedList;
@@ -30,6 +30,11 @@ public class FavoriteViewModel extends BaseViewModel {
     private MutableLiveData<Integer> receiverAPageSize = new MutableLiveData<>();
     private MutableLiveData<FilmsResults> fragmentTellerThereIsFilmResults = new MutableLiveData<>();
     private MutableLiveData<Boolean> fragmentTellerIsSessionExpired = new MutableLiveData<>();
+    private MutableLiveData<Boolean> isFavoriteListEmpty = new MutableLiveData<>();
+
+    public MutableLiveData<Boolean> getIsFavoriteListEmpty() {
+        return isFavoriteListEmpty;
+    }
 
     public MutableLiveData<Boolean> getFragmentTellerIsSessionExpired() {
         return fragmentTellerIsSessionExpired;
@@ -66,11 +71,15 @@ public class FavoriteViewModel extends BaseViewModel {
     private Observer<ResponseModel<FilmsResults>> filmsResultsObserver = new Observer<ResponseModel<FilmsResults>>() {
         @Override
         public void onChanged(@Nullable ResponseModel<FilmsResults> responseModel) {
-            isLoading.setValue(false);
             if (responseModel != null) {
                 if (responseModel.getCode() == SUCCESS_CODE) {
+                    if(responseModel.getResponse().getTotal_results() !=0) {
                     receiverAPageSize.setValue(responseModel.getResponse().getTotal_pages());
                     fragmentTellerThereIsFilmResults.setValue(responseModel.getResponse());
+                    isFavoriteListEmpty.setValue(false);
+                    } else {
+                        isFavoriteListEmpty.setValue(true);
+                    }
                 } else if (responseModel.getCode() == SESSION_EXPIRED_CODE) {
                     fragmentTellerIsSessionExpired.setValue(true);
                 }
@@ -121,13 +130,17 @@ public class FavoriteViewModel extends BaseViewModel {
                 && receiverAPageSize != null
                 && favoriteListRepository.getViewModelTellerIsSessionExpiredPagination() != null
                 && favoriteListRepository.getViewModelTellerIsSessionExpired() != null
-        && favoriteListRepository.getThereIsError() !=null) {
+        && favoriteListRepository.getThereIsError() !=null
+                && getAddFavoriteFilm() != null
+                && getRemoveFavoriteFilm() != null) {
             filmsResults.removeObserver(filmsResultsObserver);
             favoriteListRepository.getThereIsPaginationError().removeObserver(thereIsPaginationErrorObserve);
             receiverAPageSize.removeObserver(receiverAPageSizeServiceObserver);
             favoriteListRepository.getViewModelTellerIsSessionExpiredPagination().removeObserver(isSessionExpiredPaginationObserver);
             favoriteListRepository.getViewModelTellerIsSessionExpired().removeObserver(isSessionExpiredPaginationObserver);
             favoriteListRepository.getThereIsError().removeObserver(thereIsPaginationErrorObserve);
+            getAddFavoriteFilm().removeObserver(addFavoriteFilmObserver);
+            getRemoveFavoriteFilm().removeObserver(removeFavoriteFilmObserver);
         }
     }
 

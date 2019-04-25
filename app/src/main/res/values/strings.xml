@@ -79,14 +79,7 @@
     <string name="text_fragment_a">Esta é a fragment A da Tab A!</string>
     <string name="text_fragment_b">Esta é a fragment B da Tab B!</string>
     <string name="first_page">1</string>
-
-    <string-array name="titles_tabs">
-        <item>Tab A</item>
-        <item>Tab B</item>
-    </string-array>
     <string name="title_activity_list_film">ListFilmActivity</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="favorites">Favoritos</string>
     <string name="hintSearch">Pesquisar filmes</string>
@@ -103,9 +96,9 @@
     <string name="countries">USA, UK</string>
     <string name="imdb">IMDB</string>
     <string name="totalNoteFilm">/10</string>
-    <string name="diretor">Diretor:</string>
+    <string name="diretor">"Diretor: "</string>
     <string name="directorsNames">James Cameron</string>
-    <string name="writer">Escritor:</string>
+    <string name="writer">"Escritor: "</string>
     <string name="writersNames">James Cameron</string>
     <string name="similarOptions">Opções Semelhantes:</string>
     <string name="movieBannerDescription">movie banner</string>
@@ -114,4 +107,6 @@
     <string name="user_photo_border">borda foto usuário</string>
     <string name="logout">Logout</string>
     <string name="icon_logout">ícone saída</string>
+    <string name="favoriteListEmpty">Sua lista de filmes favoritos está vazia.\n\nDeslize para baixo para atualizar a lista!</string>
+    <string name="iconSwipeDescription">ícone swipe down</string>
 </resources>

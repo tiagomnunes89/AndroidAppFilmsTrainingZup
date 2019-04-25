@@ -15,8 +15,6 @@ public abstract class BaseFragment extends Fragment {
     public void loadingExecutor(Boolean isLoading, ProgressBar progressBar, FrameLayout frameLayout) {
         if (isLoading != null && getActivity() != null) {
             if (isLoading) {
-                getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 Sprite threeBounce = new ThreeBounce();
                 progressBar.setIndeterminateDrawable(threeBounce);
                 frameLayout.setVisibility(View.VISIBLE);
@@ -24,7 +22,6 @@ public abstract class BaseFragment extends Fragment {
                 Sprite threeBounce = new ThreeBounce();
                 progressBar.setIndeterminateDrawable(threeBounce);
                 frameLayout.setVisibility(View.INVISIBLE);
-                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
         }
     }

@@ -2,13 +2,13 @@
 <resources>
     <dimen name="marginTopEditTextNameRegister">100dp</dimen>
     <dimen name="marginStandard">8dp</dimen>
-    <dimen name="marginLayout">30dp</dimen>
+    <dimen name="marginLayout">16dp</dimen>
     <dimen name="paddingEditText">15dp</dimen>
     <dimen name="textSizeDefault">12sp</dimen>
     <dimen name="textSizeSmall">14sp</dimen>
     <dimen name="textSizeTiny">10sp</dimen>
     <dimen name="defaultHeaderLetterSpacing">.15</dimen>
-    <dimen name="textSizeHeader">18sp</dimen>
+    <dimen name="textSizeHeader">16sp</dimen>
     <dimen name="bigMargin">16dp</dimen>
     <dimen name="lineSpacing">36dp</dimen>
     <dimen name="formFinalSpacing">160dp</dimen>
@@ -42,7 +42,6 @@
     <dimen name="smallMargin">8dp</dimen>
     <dimen name="margin_top_header">88dp</dimen>
     <dimen name="margin_top_arrow">40dp</dimen>
-    <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
@@ -58,14 +57,14 @@
     <dimen name="activity_margin_quarter">4dp</dimen>
     <dimen name="margin_top_details">4dp</dimen>
     <dimen name="marginStartDetails">14dp</dimen>
-    <dimen name="marginStartEmail">45dp</dimen>
+    <dimen name="marginStartEmail">21dp</dimen>
     <dimen name="textSizeToolbar">20sp</dimen>
     <dimen name="cardElevation">3dp</dimen>
     <dimen name="midMargin">12dp</dimen>
     <dimen name="textSizeSubtitle">16sp</dimen>
-    <dimen name="marginEndPositionLogo">50dp</dimen>
+    <dimen name="marginFifty">50dp</dimen>
     <dimen name="marginOrPaddingTwenty">20dp</dimen>
-    <dimen name="titleItemWidth">120dp</dimen>
+    <dimen name="titleItemWidth">90dp</dimen>
     <dimen name="marginStartCheckBox">80dp</dimen>
     <dimen name="marginStartKeywords">32dp</dimen>
     <dimen name="alphaEffect">.38</dimen>

@@ -16,13 +16,13 @@ import br.com.estagio.oletrainning.zup.otmovies.server.repositories.FilmReposito
 import br.com.estagio.oletrainning.zup.otmovies.server.response.FilmResponse;
 import br.com.estagio.oletrainning.zup.otmovies.server.response.FilmsResults;
 import br.com.estagio.oletrainning.zup.otmovies.ui.BaseViewModel;
-import br.com.estagio.oletrainning.zup.otmovies.ui.home.adapters.FilmDataSourceFactory;
+import br.com.estagio.oletrainning.zup.otmovies.ui.home.adapters.SearchDataSourceFactory;
 
 public class SearchViewModel extends BaseViewModel {
 
     private final static String FIRST_PAGE = "1";
     private final static String FILTER_NAME = "name";
-    private Integer PAGE_SIZE = 20;
+    private Integer PAGE_SIZE = 10;
     private Integer INITIAL_LOAD_SIZE_HINT = 5;
     private Integer PREFETCH_DISTANCE_VALUE = 5;
     private FilmRepository filmRepository = new FilmRepository();
@@ -56,8 +56,8 @@ public class SearchViewModel extends BaseViewModel {
     private Observer<FilterIDAndPageSize> receiverAPageSizeAndGenreIDServiceObserver = new Observer<FilterIDAndPageSize>() {
         @Override
         public void onChanged(FilterIDAndPageSize filterIDAndPageSize) {
-            FilmDataSourceFactory itemDataSourceFactory =
-                    new FilmDataSourceFactory(filterIDAndPageSize.getPageSize(),
+            SearchDataSourceFactory itemDataSourceFactory =
+                    new SearchDataSourceFactory(filterIDAndPageSize.getPageSize(),
                             filterIDAndPageSize.getFilterID(),FILTER_NAME);
             liveDataSource = itemDataSourceFactory.getItemLiveDataSource();
             PagedList.Config config =
@@ -69,8 +69,6 @@ public class SearchViewModel extends BaseViewModel {
                             .build();
 
             itemPagedList = (new LivePagedListBuilder(itemDataSourceFactory, config)).build();
-
-
         }
     };
 
@@ -89,7 +87,6 @@ public class SearchViewModel extends BaseViewModel {
     private Observer<ResponseModel<FilmsResults>> filmsResultsObserverSearch = new Observer<ResponseModel<FilmsResults>>() {
         @Override
         public void onChanged(@Nullable ResponseModel<FilmsResults> responseModel) {
-            isLoading.setValue(false);
             if (responseModel != null) {
                 if (responseModel.getCode() == SUCCESS_CODE) {
                     if(responseModel.getResponse().getTotal_results() !=0 && SearchViewModel.this.queryMovies != null){
@@ -142,12 +139,16 @@ public class SearchViewModel extends BaseViewModel {
         if (filmsResults != null && filmRepository.getThereIsPaginationError() != null
                 &&  receiverAPageSizeAndGenreIDService != null
                 && filmRepository.getViewModelTellerIsSessionExpiredPagination() != null
-                && favoriteListRepository.getViewModelTellerIsSessionExpired() != null)  {
+                && favoriteListRepository.getViewModelTellerIsSessionExpired() != null
+                && getAddFavoriteFilm() != null
+                && getRemoveFavoriteFilm() != null)  {
             filmsResults.removeObserver(filmsResultsObserverSearch);
             filmRepository.getThereIsPaginationError().removeObserver(thereIsPaginationErrorObserve);
             receiverAPageSizeAndGenreIDService.removeObserver(receiverAPageSizeAndGenreIDServiceObserver);
             filmRepository.getViewModelTellerIsSessionExpiredPagination().removeObserver(isSessionExpiredPaginationObserver);
             favoriteListRepository.getViewModelTellerIsSessionExpired().removeObserver(isSessionExpiredPaginationObserver);
+            getAddFavoriteFilm().removeObserver(addFavoriteFilmObserver);
+            getRemoveFavoriteFilm().removeObserver(removeFavoriteFilmObserver);
         }
     }
 }

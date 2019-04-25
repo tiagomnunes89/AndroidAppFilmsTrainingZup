@@ -6,13 +6,8 @@ import android.arch.paging.PagedList;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.behavior.HideBottomViewOnScrollBehavior;
-import android.support.design.bottomappbar.BottomAppBar;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,15 +24,15 @@ import com.sdsmdg.tastytoast.TastyToast;
 import br.com.estagio.oletrainning.zup.otmovies.R;
 import br.com.estagio.oletrainning.zup.otmovies.server.response.FilmResponse;
 import br.com.estagio.oletrainning.zup.otmovies.server.response.FilmsResults;
+import br.com.estagio.oletrainning.zup.otmovies.ui.BaseFragment;
 import br.com.estagio.oletrainning.zup.otmovies.ui.home.adapters.FilmAdapter;
-import br.com.estagio.oletrainning.zup.otmovies.ui.home.homeActivity.HomeActivity;
 import br.com.estagio.oletrainning.zup.otmovies.ui.home.movieDetailsActivity.MovieDetailsActivity;
 import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonAlertDialogSession;
 import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonEmail;
 import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonFilmID;
 import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonTotalResults;
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends BaseFragment {
 
     private SearchViewHolder searchViewHolder;
     private SearchViewModel searchViewModel;
@@ -60,6 +55,12 @@ public class SearchFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        searchViewModel.getIsLoading().setValue(false);
+    }
+
     public void onResume() {
         super.onResume();
         if (adapter == null) {
@@ -75,17 +76,18 @@ public class SearchFragment extends Fragment {
     }
 
     private void setupObserversAndListeners() {
-        searchViewModel.getIsMessageSuccessForToast().observe(this,isSuccessMessageForToastObserver);
+        searchViewModel.getIsMessageSuccessForToast().observe(this, isSuccessMessageForToastObserver);
         searchViewModel.getIsLoading().observe(this, progressBarObserver);
         searchViewModel.getFragmentTellerThereIsFilmResults().observe(this, homeTellerThereIsFilmResultsObserver);
         searchViewModel.getIsErrorMessageForToast().observe(this, isErrorMessageForToastObserver);
-        searchViewModel.getIsSearchEmpty().observe(this,isSearchEmptyObserver);
+        searchViewModel.getIsSearchEmpty().observe(this, isSearchEmptyObserver);
     }
 
     private Observer<Boolean> isSearchEmptyObserver = new Observer<Boolean>() {
         @Override
-        public void onChanged(@Nullable Boolean isSearchEmpty) {
-            if(isSearchEmpty){
+        public void onChanged(Boolean isSearchEmpty) {
+            if (isSearchEmpty) {
+                searchViewModel.getIsLoading().setValue(false);
                 searchViewHolder.textViewFilmNotFound.setVisibility(View.VISIBLE);
                 searchViewHolder.recyclerView.setVisibility(View.GONE);
             } else {
@@ -126,6 +128,7 @@ public class SearchFragment extends Fragment {
         @Override
         public void onChanged(@Nullable PagedList<FilmResponse> filmResponses) {
             adapter.submitList(filmResponses);
+            searchViewModel.getIsLoading().setValue(false);
         }
     };
 
@@ -139,7 +142,7 @@ public class SearchFragment extends Fragment {
                 @Override
                 public void OnCheckBoxClick(int position, PagedList<FilmResponse> currentList, Boolean isChecked) {
                     SingletonFilmID.setIDEntered(currentList.get(position).getId());
-                    if(isChecked){
+                    if (isChecked) {
                         searchViewModel.executeAddFavoriteFilm(SingletonEmail.INSTANCE.getEmail(),
                                 String.valueOf(SingletonFilmID.INSTANCE.getID()));
                     } else {
@@ -151,19 +154,14 @@ public class SearchFragment extends Fragment {
             adapter.setOnItemClickListener(new FilmAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(int position, PagedList<FilmResponse> currentList) {
-                    Log.d("position",String.valueOf(position));
-                    if (filmsResults != null) {
-                        searchViewModel.getIsLoading().setValue(true);
-                        SingletonFilmID.setIDEntered(currentList.get(position).getId());
-                        if(SingletonFilmID.INSTANCE.getID() != null){
-                            Intent intent = new Intent(getActivity(), MovieDetailsActivity.class);
-                            startActivity(intent);
-                        }
-                        searchViewModel.getIsLoading().setValue(false);
+                    searchViewModel.getIsLoading().setValue(true);
+                    SingletonFilmID.setIDEntered(currentList.get(position).getId());
+                    if (SingletonFilmID.INSTANCE.getID() != null) {
+                        Intent intent = new Intent(getActivity(), MovieDetailsActivity.class);
+                        startActivity(intent);
                     }
                 }
             });
-            searchViewModel.getIsLoading().setValue(false);
         }
     };
 
@@ -185,9 +183,9 @@ public class SearchFragment extends Fragment {
 
         @Override
         public boolean onQueryTextChange(String newText) {
-            if(!newText.isEmpty()){
+            if (!newText.isEmpty()) {
                 searchViewModel.executeServiceGetFilmResultsSearch(newText);
-            }else{
+            } else {
                 adapter.submitList(null);
             }
             return false;
@@ -197,8 +195,6 @@ public class SearchFragment extends Fragment {
     public void loadingExecutor(Boolean isLoading, ProgressBar progressBar, FrameLayout frameLayout) {
         if (isLoading != null && getActivity() != null) {
             if (isLoading) {
-                getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 Sprite threeBounce = new ThreeBounce();
                 progressBar.setIndeterminateDrawable(threeBounce);
                 searchViewHolder.textViewFilmNotFound.setVisibility(View.GONE);
@@ -219,10 +215,5 @@ public class SearchFragment extends Fragment {
         searchViewModel.removeObserver();
         SingletonAlertDialogSession.INSTANCE.destroyAlertDialogBuilder();
         SingletonFilmID.setIDEntered(null);
-    }
-
-    public static SearchFragment newInstance() {
-        SearchFragment myFragment = new SearchFragment();
-        return myFragment;
     }
 }

@@ -67,12 +67,14 @@ public class MovieDetailsViewHolder {
         checkBox = view.findViewById(R.id.checkbox_favorite_details);
     }
 
-    private String sentenceBuilder(@NonNull List<String> listString) {
+    private String sentenceBuilder(List<String> listString) {
         StringBuilder keywordList = new StringBuilder();
-        for (int i = 0; i < listString.size(); i++) {
-            keywordList.append(listString.get(i));
-            if (i < listString.size() - 1) {
-                keywordList.append(", ");
+        if(listString != null) {
+            for (int i = 0; i < listString.size(); i++) {
+                keywordList.append(listString.get(i));
+                if (i < listString.size() - 1) {
+                    keywordList.append(", ");
+                }
             }
         }
         Log.d("KEYWORDS", keywordList.toString());

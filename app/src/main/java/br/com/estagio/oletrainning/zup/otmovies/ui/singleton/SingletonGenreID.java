@@ -1,7 +1,5 @@
 package br.com.estagio.oletrainning.zup.otmovies.ui.singleton;
 
-import android.util.Log;
-
 public enum SingletonGenreID {
 
     INSTANCE;
@@ -15,10 +13,6 @@ public enum SingletonGenreID {
     public static void setGenreIDEntered(String genreID){
         SingletonGenreID singletonGenreID = SingletonGenreID.INSTANCE;
         singletonGenreID.setGenreID(genreID);
-        if (singletonGenreID.genreID != null){
-            Log.d("SINGLETON_GENRE_ID", singletonGenreID.genreID);
-        }
-
     }
 
     public String getGenreID(){

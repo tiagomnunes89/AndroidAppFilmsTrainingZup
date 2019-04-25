@@ -1,7 +1,6 @@
 package br.com.estagio.oletrainning.zup.otmovies.ui.home.adapters;
 
 import android.arch.paging.PagedList;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -80,19 +79,21 @@ public class ItemViewHolderDetails extends RecyclerView.ViewHolder {
         });
     }
 
-    private String sentenceBuilder(@NonNull List<String> listString) {
+    private String sentenceBuilder(List<String> listString) {
         StringBuilder keywordList = new StringBuilder();
-        for (int i = 0; i < listString.size(); i++) {
-            keywordList.append(listString.get(i));
-            if (i < listString.size() - 1) {
-                keywordList.append(", ");
+        if(listString != null) {
+            for (int i = 0; i < listString.size(); i++) {
+                keywordList.append(listString.get(i));
+                if (i < listString.size() - 1) {
+                    keywordList.append(", ");
+                }
             }
         }
         Log.d("KEYWORDS", keywordList.toString());
         return keywordList.toString();
     }
     
-    public void setFilmeResponseInformations (FilmResponse film){
+    public void setFilmResponseInformation(FilmResponse film){
         this.textTitleFilm.setText(film.getTitle());
         if(film.getPosterId() == null || film.getPosterId().isEmpty()){
             this.cardViewPoster.setVisibility(View.INVISIBLE);
@@ -109,11 +110,11 @@ public class ItemViewHolderDetails extends RecyclerView.ViewHolder {
         this.year.setText(String.valueOf(film.getYear()));
         this.filmNote.setText(String.valueOf(film.getVoteAverage()));
         if(film.isFavorit()){
-            this.checkBox.isChecked();
+            this.checkBox.setChecked(true);
         }
         Float filmPrice = film.getPrice();
         DecimalFormat decimalFormat = new DecimalFormat("#.00");
-        String priceText = "R$ "+ String.valueOf(decimalFormat.format(filmPrice));
+        String priceText = "R$ "+ decimalFormat.format(filmPrice);
         this.price.setText(priceText);
     }
 }

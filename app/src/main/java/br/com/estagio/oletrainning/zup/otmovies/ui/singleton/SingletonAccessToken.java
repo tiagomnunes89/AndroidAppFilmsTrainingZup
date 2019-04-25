@@ -1,7 +1,5 @@
 package br.com.estagio.oletrainning.zup.otmovies.ui.singleton;
 
-import android.util.Log;
-
 public enum SingletonAccessToken {
 
     INSTANCE;
@@ -15,10 +13,6 @@ public enum SingletonAccessToken {
     public static void setAccessTokenReceived(String token){
         SingletonAccessToken singletonAccessToken = SingletonAccessToken.INSTANCE;
         singletonAccessToken.setAccessToken(token);
-        if (singletonAccessToken.accessToken != null){
-            Log.d("SINGLETON_TOKEN_SAVED", singletonAccessToken.accessToken);
-        }
-
     }
 
     public String getLastestAuth(){

@@ -3,8 +3,10 @@ package br.com.estagio.oletrainning.zup.otmovies.ui.home.fragments.home;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -13,10 +15,10 @@ import android.view.ViewGroup;
 
 import com.sdsmdg.tastytoast.TastyToast;
 
-import br.com.estagio.oletrainning.zup.otmovies.ui.BaseFragment;
-import br.com.estagio.oletrainning.zup.otmovies.ui.home.adapters.FragmentStateAdapter;
 import br.com.estagio.oletrainning.zup.otmovies.R;
 import br.com.estagio.oletrainning.zup.otmovies.server.response.FilmGenres;
+import br.com.estagio.oletrainning.zup.otmovies.ui.BaseFragment;
+import br.com.estagio.oletrainning.zup.otmovies.ui.home.adapters.FragmentStateAdapter;
 import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonAlertDialogSession;
 
 public class HomeFragment extends BaseFragment {

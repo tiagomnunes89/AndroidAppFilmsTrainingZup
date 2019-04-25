@@ -18,7 +18,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FilmRepository extends CommonRepository{
+public class FilmRepository extends BaseRepository {
 
     private FilmService filmService;
     private int SUCCESS_CODE = 200;
@@ -26,6 +26,7 @@ public class FilmRepository extends CommonRepository{
     private String UNEXPECTED_ERROR_MESSAGE = "Erro inesperado, tente novamente mais tarde!";
     private int SESSION_EXPIRED_CODE = 401;
     private static final int FIRST_PAGE = 1;
+    private static final String AMOUNT = "10";
 
     private MutableLiveData<ErrorMessage> thereIsPaginationError;
     private MutableLiveData<Boolean> viewModelTellerIsSessionExpiredPagination;
@@ -116,7 +117,7 @@ public class FilmRepository extends CommonRepository{
 
     public LiveData<ResponseModel<FilmsResults>> getFilmsResults(String page, String filterID, String filter) {
         final MutableLiveData<ResponseModel<FilmsResults>> data = new MutableLiveData<>();
-        filmService.getMovieGenre(filter,filterID,"20",page)
+        filmService.getMovieGenre(filter,filterID,AMOUNT,page)
                 .enqueue(new Callback<FilmsResults>() {
                     @Override
                     public void onResponse(Call<FilmsResults> call, Response<FilmsResults> response) {
@@ -151,7 +152,7 @@ public class FilmRepository extends CommonRepository{
     public void getFilmsResultsLoadInitial (
             final PageKeyedDataSource.LoadInitialCallback<Integer, FilmResponse> callback,
             String firstPage, String genreID,String filter) {
-        filmService.getMovieGenre(filter,genreID,"20",firstPage)
+        filmService.getMovieGenre(filter,genreID,AMOUNT,firstPage)
                 .enqueue(new Callback<FilmsResults>() {
                     @Override
                     public void onResponse(Call<FilmsResults> call, Response<FilmsResults> response) {
@@ -185,7 +186,7 @@ public class FilmRepository extends CommonRepository{
     public void getFilmsResultsLoadBefore (
             final PageKeyedDataSource.LoadParams<Integer> params, final PageKeyedDataSource.LoadCallback<Integer,
             FilmResponse> callback, String genreID,String filter) {
-        filmService.getMovieGenre(filter,genreID,"20",String.valueOf(params.key))
+        filmService.getMovieGenre(filter,genreID,AMOUNT,String.valueOf(params.key))
                 .enqueue(new Callback<FilmsResults>() {
                     @Override
                     public void onResponse(Call<FilmsResults> call, Response<FilmsResults> response) {
@@ -217,10 +218,10 @@ public class FilmRepository extends CommonRepository{
                 });
     }
 
-    public void getFilmsResultsloadAfter (
+    public void getFilmsResultsLoadAfter(
             final Integer PAGE_SIZE, final PageKeyedDataSource.LoadParams<Integer> params,
             final PageKeyedDataSource.LoadCallback<Integer, FilmResponse> callback, String genreID, String filter) {
-        filmService.getMovieGenre(filter,genreID,"20",String.valueOf(params.key))
+        filmService.getMovieGenre(filter,genreID,AMOUNT,String.valueOf(params.key))
                 .enqueue(new Callback<FilmsResults>() {
                     @Override
                     public void onResponse(Call<FilmsResults> call, Response<FilmsResults> response) {

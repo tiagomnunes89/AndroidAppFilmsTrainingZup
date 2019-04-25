@@ -29,9 +29,9 @@ public class MovieDetailsViewModel extends BaseViewModel {
 
     private String SERVICE_OR_CONNECTION_ERROR = "Falha ao receber detalhes do filme. Verifique a conexão e tente novamente.";
     private String FILTER_SIMILARITY = "similarity";
-    private Integer INITIAL_LOAD_SIZE_HINT = 20;
-    private Integer PREFETCH_DISTANCE_VALUE = 20;
-    private Integer PAGE_SIZE = 20;
+    private Integer INITIAL_LOAD_SIZE_HINT = 10;
+    private Integer PREFETCH_DISTANCE_VALUE = 10;
+    private Integer PAGE_SIZE = 10;
 
     private MutableLiveData<Boolean> activityTellerIsSessionExpired = new MutableLiveData<>();
 
@@ -71,7 +71,6 @@ public class MovieDetailsViewModel extends BaseViewModel {
     private Observer<ResponseModel<MovieDetailsModel>> getMovieDetailsObserver = new Observer<ResponseModel<MovieDetailsModel>>() {
         @Override
         public void onChanged(@Nullable ResponseModel<MovieDetailsModel> movieDetails) {
-            isLoading.setValue(false);
             if (movieDetails != null) {
                 if (movieDetails.getCode() == SUCCESS_CODE) {
                     thereIsMovieDetails.setValue(movieDetails.getResponse());
@@ -105,7 +104,6 @@ public class MovieDetailsViewModel extends BaseViewModel {
     private Observer<ResponseModel<FilmsResults>> filmsResultsObserver = new Observer<ResponseModel<FilmsResults>>() {
         @Override
         public void onChanged(@Nullable ResponseModel<FilmsResults> responseModel) {
-            isLoading.setValue(false);
             if (responseModel != null) {
                 if (responseModel.getCode() == SUCCESS_CODE) {
                     receiverPageSizeService.setValue(responseModel.getResponse().getTotal_results());
@@ -160,11 +158,15 @@ public class MovieDetailsViewModel extends BaseViewModel {
         super.removeObserver();
         if (filmsResults != null && filmRepository.getThereIsPaginationError() != null
                 &&  receiverPageSizeService != null
-                && filmRepository.getViewModelTellerIsSessionExpiredPagination() != null)  {
+                && filmRepository.getViewModelTellerIsSessionExpiredPagination() != null
+                && getAddFavoriteFilm() != null
+                && getRemoveFavoriteFilm() != null)  {
             filmsResults.removeObserver(filmsResultsObserver);
             filmRepository.getThereIsPaginationError().removeObserver(thereIsPaginationErrorObserve);
             receiverPageSizeService.removeObserver(receiverPageSizeServiceObserver);
             filmRepository.getViewModelTellerIsSessionExpiredPagination().removeObserver(isSessionExpiredPaginationObserver);
+            getAddFavoriteFilm().removeObserver(addFavoriteFilmObserver);
+            getRemoveFavoriteFilm().removeObserver(removeFavoriteFilmObserver);
         }
     }
 }

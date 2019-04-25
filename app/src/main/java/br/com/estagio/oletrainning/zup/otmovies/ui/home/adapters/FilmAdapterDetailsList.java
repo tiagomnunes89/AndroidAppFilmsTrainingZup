@@ -93,7 +93,7 @@ public class FilmAdapterDetailsList extends PagedListAdapter<FilmResponse, Recyc
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         if (viewHolder instanceof ItemViewHolderDetails) {
             FilmResponse film = getItem(position-1);
-            ((ItemViewHolderDetails) viewHolder).setFilmeResponseInformations(film);
+            ((ItemViewHolderDetails) viewHolder).setFilmResponseInformation(film);
         } else if (viewHolder instanceof DetailsViewHolder) {
             if (movieDetailsModel != null) {
                 ((DetailsViewHolder) viewHolder).setMovieDetailsInformation(this.movieDetailsModel);

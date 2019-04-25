@@ -17,17 +17,28 @@ public abstract class BaseViewModel extends ViewModel {
     protected ValidationRepository validationRepository = new ValidationRepository();
     protected int SUCCESS_CODE = 200;
     protected int SESSION_EXPIRED_CODE = 401;
+    protected int OTHER_ERROR_CODE = 500;
     protected String SUCCESS_RESEND_TOKEN = "Código reenviado com sucesso!";
     private String SERVICE_OR_CONNECTION_ERROR_RESEND_TOKEN = "Falha ao reenviar o código. Verifique a conexão e tente novamente.";
     private String SUCCESS_MESSAGE_ADD = "Filme adicionado aos favoritos com sucesso";
     private String SUCCESS_MESSAGE_DELETE = "Filme removido dos favoritos com sucesso";
     private String SERVICE_OR_CONNECTION_ERROR_ADD = "Falha ao adicionar aos favoritos. Verifique a conexão e tente novamente.";
+    private String MESSAGE_OTHER_ERROR_REMOVE = "Não foi possível remover esse filme. Verifique se já foi removido!";
+    private String MESSAGE_OTHER_ERROR_ADD = "Não foi possível adicionar esse filme. Verifique se já foi adicionado!";
     private String SERVICE_OR_CONNECTION_ERROR_DELETE = "Falha ao remover dos favoritos. Verifique a conexão e tente novamente.";
     protected FavoriteListRepository favoriteListRepository = new FavoriteListRepository();
 
     private LiveData<ResponseModel<Void>> addFavoriteFilm;
 
     private LiveData<ResponseModel<Void>> removeFavoriteFilm;
+
+    public LiveData<ResponseModel<Void>> getAddFavoriteFilm() {
+        return addFavoriteFilm;
+    }
+
+    public LiveData<ResponseModel<Void>> getRemoveFavoriteFilm() {
+        return removeFavoriteFilm;
+    }
 
     protected MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
 
@@ -38,14 +49,6 @@ public abstract class BaseViewModel extends ViewModel {
     protected MutableLiveData<String> forwardedToken = new MutableLiveData<>();
 
     protected MutableLiveData<String> isMessageSuccessForToast = new MutableLiveData<>();
-
-    protected LiveData<ResponseModel<Void>> getAddFavoriteFilm() {
-        return addFavoriteFilm;
-    }
-
-    protected LiveData<ResponseModel<Void>> getRemoveFavoriteFilm() {
-        return removeFavoriteFilm;
-    }
 
     public MutableLiveData<String> getIsMessageSuccessForToast() {
         return isMessageSuccessForToast;
@@ -90,23 +93,23 @@ public abstract class BaseViewModel extends ViewModel {
         tokenResend.observeForever(tokenResendObserver);
     }
 
-    public void tokenForwardingRequested(){
+    public void tokenForwardingRequested() {
         String email = SingletonEmail.INSTANCE.getEmail();
         executeServiceTokenResend(email);
     }
 
     public void executeAddFavoriteFilm(String email, String movieID) {
-        addFavoriteFilm = favoriteListRepository.addFavotiteFilm(email,movieID);
+        addFavoriteFilm = favoriteListRepository.addFavoriteFilm(email, movieID);
         addFavoriteFilm.observeForever(addFavoriteFilmObserver);
     }
 
-    private Observer<ResponseModel<Void>> addFavoriteFilmObserver = new Observer<ResponseModel<Void>>() {
+    protected Observer<ResponseModel<Void>> addFavoriteFilmObserver = new Observer<ResponseModel<Void>>() {
         @Override
-        public void onChanged(@Nullable ResponseModel<Void> responseModel) {
-            if (responseModel != null) {
-                if (responseModel.getCode() == SUCCESS_CODE) {
-                    isMessageSuccessForToast.setValue(SUCCESS_MESSAGE_ADD);
-                }
+        public void onChanged(ResponseModel<Void> responseModel) {
+            if (responseModel.getCode() == SUCCESS_CODE) {
+                isMessageSuccessForToast.setValue(SUCCESS_MESSAGE_ADD);
+            } else if (responseModel.getCode() == OTHER_ERROR_CODE){
+                isErrorMessageForToast.setValue(MESSAGE_OTHER_ERROR_ADD);
             } else {
                 isErrorMessageForToast.setValue(SERVICE_OR_CONNECTION_ERROR_ADD);
             }
@@ -114,30 +117,24 @@ public abstract class BaseViewModel extends ViewModel {
     };
 
     public void executeRemoveFavoriteFilm(String email, String movieID) {
-        removeFavoriteFilm = favoriteListRepository.removeFavotiteFilm(email,movieID);
+        removeFavoriteFilm = favoriteListRepository.removeFavoriteFilm(email, movieID);
         removeFavoriteFilm.observeForever(removeFavoriteFilmObserver);
     }
 
-    private Observer<ResponseModel<Void>> removeFavoriteFilmObserver = new Observer<ResponseModel<Void>>() {
+    protected Observer<ResponseModel<Void>> removeFavoriteFilmObserver = new Observer<ResponseModel<Void>>() {
         @Override
         public void onChanged(@Nullable ResponseModel<Void> responseModel) {
-            if (responseModel != null) {
-                if (responseModel.getCode() == SUCCESS_CODE) {
-                    isMessageSuccessForToast.setValue(SUCCESS_MESSAGE_DELETE);
+            if (responseModel.getCode() == SUCCESS_CODE) {
+                isMessageSuccessForToast.setValue(SUCCESS_MESSAGE_DELETE);
+            } else if (responseModel.getCode() == OTHER_ERROR_CODE){
+                isErrorMessageForToast.setValue(MESSAGE_OTHER_ERROR_REMOVE);
+                } else {
+                    isErrorMessageForToast.setValue(SERVICE_OR_CONNECTION_ERROR_DELETE);
                 }
-            } else {
-                isErrorMessageForToast.setValue(SERVICE_OR_CONNECTION_ERROR_DELETE);
             }
-        }
     };
 
     public void removeObserver() {
-        if (tokenResend != null
-        && removeFavoriteFilm != null
-        && addFavoriteFilm != null) {
-            tokenResend.removeObserver(tokenResendObserver);
-            removeFavoriteFilm.removeObserver(removeFavoriteFilmObserver);
-            addFavoriteFilm.removeObserver(addFavoriteFilmObserver);
-        }
+
     }
 }

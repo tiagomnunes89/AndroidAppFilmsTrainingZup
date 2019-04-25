@@ -20,12 +20,12 @@
             android:id="@+id/imageView_backArrow"
             android:layout_width="@dimen/sizeBackArrow"
             android:layout_height="@dimen/sizeBackArrow"
-            android:layout_marginTop="@dimen/margin_top_arrow"
+            android:layout_marginTop="@dimen/marginLayout"
             android:layout_marginStart="@dimen/marginLayout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout_red_toast"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_arrow_back_black_24dp"
-            android:contentDescription="@string/imageview_backarrow"/>
+            android:contentDescription="@string/imageview_backarrow" />
 
         <TextView
             android:id="@+id/textView_header"
@@ -68,8 +68,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_margin"
             android:layout_marginBottom="@dimen/activity_margin"
-            android:layout_marginStart="@dimen/marginThirty"
-            android:layout_marginEnd="@dimen/marginThirty"
+            android:layout_marginStart="@dimen/marginLayout"
+            android:layout_marginEnd="@dimen/marginLayout"
             app:setHint="@string/password"
             app:setInicialErrorVisibility="false"
             app:setInputType="textPassword">

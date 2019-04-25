@@ -81,7 +81,7 @@ public class FilmAdapter extends PagedListAdapter<FilmResponse, RecyclerView.Vie
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         if (viewHolder instanceof ItemViewHolder) {
-            ((ItemViewHolder) viewHolder).setFilmeResponseInformations(getItem(position));
+            ((ItemViewHolder) viewHolder).setFilmResponseInformation(getItem(position));
         }  else if (viewHolder instanceof LoadingViewHolder) {
 
         } else {

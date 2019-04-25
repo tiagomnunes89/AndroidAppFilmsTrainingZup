@@ -20,9 +20,9 @@ import br.com.estagio.oletrainning.zup.otmovies.ui.home.adapters.FilmDataSourceF
 
 public class MovieListViewModel extends BaseViewModel {
 
-    private Integer INITIAL_LOAD_SIZE_HINT = 20;
-    private Integer PREFETCH_DISTANCE_VALUE = 20;
-    private Integer PAGE_SIZE = 20;
+    private Integer INITIAL_LOAD_SIZE_HINT = 10;
+    private Integer PREFETCH_DISTANCE_VALUE = 10;
+    private Integer PAGE_SIZE = 10;
     protected FilmRepository filmRepository = new FilmRepository();
     protected FavoriteListRepository favoriteListRepository = new FavoriteListRepository();
     protected String SERVICE_OR_CONNECTION_ERROR = "Falha ao receber filmes. Verifique a conexão e tente novamente.";
@@ -63,15 +63,12 @@ public class MovieListViewModel extends BaseViewModel {
                             .build();
 
             itemPagedList = (new LivePagedListBuilder(itemDataSourceFactory, config)).build();
-
-
         }
     };
 
     protected Observer<ResponseModel<FilmsResults>> filmsResultsObserver = new Observer<ResponseModel<FilmsResults>>() {
         @Override
         public void onChanged(@Nullable ResponseModel<FilmsResults> responseModel) {
-            isLoading.setValue(false);
             if (responseModel != null) {
                 if (responseModel.getCode() == SUCCESS_CODE) {
                         FilterIDAndPageSize filterIDAndPageSize = new FilterIDAndPageSize(responseModel.getResponse().getTotal_pages(),
@@ -127,12 +124,16 @@ public class MovieListViewModel extends BaseViewModel {
         if (filmsResults != null && filmRepository.getThereIsPaginationError() != null
                 && receiverAPageSizeAndGenreIDService != null
                 && filmRepository.getViewModelTellerIsSessionExpiredPagination() != null
-                && favoriteListRepository.getViewModelTellerIsSessionExpired() != null) {
+                && favoriteListRepository.getViewModelTellerIsSessionExpired() != null
+        && getAddFavoriteFilm() != null
+        && getRemoveFavoriteFilm() != null) {
             filmsResults.removeObserver(filmsResultsObserver);
             filmRepository.getThereIsPaginationError().removeObserver(thereIsPaginationErrorObserve);
             receiverAPageSizeAndGenreIDService.removeObserver(receiverAPageSizeAndGenreIDServiceObserver);
             filmRepository.getViewModelTellerIsSessionExpiredPagination().removeObserver(isSessionExpiredPaginationObserver);
             favoriteListRepository.getViewModelTellerIsSessionExpired().removeObserver(isSessionExpiredPaginationObserver);
+            getAddFavoriteFilm().removeObserver(addFavoriteFilmObserver);
+            getRemoveFavoriteFilm().removeObserver(removeFavoriteFilmObserver);
         }
     }
 }
