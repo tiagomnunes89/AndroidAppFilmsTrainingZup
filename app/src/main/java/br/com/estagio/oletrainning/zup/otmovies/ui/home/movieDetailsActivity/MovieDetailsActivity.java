@@ -79,6 +79,12 @@ public class MovieDetailsActivity extends BaseActivity {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        movieDetailsViewModel.getIsLoading().setValue(false);
+    }
+
+    @Override
     protected void onPostResume() {
         super.onPostResume();
         colorStatusBar(this.getWindow(), R.color.colorPrimary, false);
