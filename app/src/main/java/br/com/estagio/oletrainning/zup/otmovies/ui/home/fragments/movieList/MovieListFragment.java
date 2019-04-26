@@ -7,25 +7,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.FrameLayout;
-import android.widget.ProgressBar;
 
-import com.github.ybq.android.spinkit.sprite.Sprite;
-import com.github.ybq.android.spinkit.style.ThreeBounce;
 import com.sdsmdg.tastytoast.TastyToast;
 
-import br.com.estagio.oletrainning.zup.otmovies.ui.BaseFragment;
-import br.com.estagio.oletrainning.zup.otmovies.ui.home.adapters.FilmAdapter;
-import br.com.estagio.oletrainning.zup.otmovies.ui.home.movieDetailsActivity.MovieDetailsActivity;
 import br.com.estagio.oletrainning.zup.otmovies.R;
 import br.com.estagio.oletrainning.zup.otmovies.server.response.FilmResponse;
 import br.com.estagio.oletrainning.zup.otmovies.server.response.FilmsResults;
+import br.com.estagio.oletrainning.zup.otmovies.ui.BaseFragment;
+import br.com.estagio.oletrainning.zup.otmovies.ui.home.adapters.FilmAdapter;
+import br.com.estagio.oletrainning.zup.otmovies.ui.home.movieDetailsActivity.MovieDetailsActivity;
 import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonAlertDialogSession;
 import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonEmail;
 import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonFilmID;
@@ -50,6 +44,10 @@ public class MovieListFragment extends BaseFragment {
 
         linearLayoutManager = new LinearLayoutManager(getActivity());
 
+        if (adapter == null) {
+            adapter = new FilmAdapter(getActivity());
+        }
+
         movieListViewModel = ViewModelProviders.of(MovieListFragment.this).get(MovieListViewModel.class);
         movieListViewModel.getFragmentTellerIsSessionExpired().observe(this, sessionObserver);
 
@@ -68,9 +66,6 @@ public class MovieListFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (adapter == null) {
-            adapter = new FilmAdapter(getActivity());
-        }
         setupObserversAndListeners();
         setupLayoutManager();
     }
