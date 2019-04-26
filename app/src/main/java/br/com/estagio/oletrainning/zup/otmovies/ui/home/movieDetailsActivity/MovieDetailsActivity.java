@@ -12,7 +12,6 @@ import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
@@ -280,8 +279,6 @@ public class MovieDetailsActivity extends BaseActivity {
     public void loadingExecutor(Boolean isLoading, ProgressBar progressBar, FrameLayout frameLayout) {
         if (isLoading != null) {
             if (isLoading) {
-                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 Sprite threeBounce = new ThreeBounce();
                 progressBar.setIndeterminateDrawable(threeBounce);
                 frameLayout.setVisibility(View.VISIBLE);
@@ -289,7 +286,6 @@ public class MovieDetailsActivity extends BaseActivity {
                 Sprite threeBounce = new ThreeBounce();
                 progressBar.setIndeterminateDrawable(threeBounce);
                 frameLayout.setVisibility(View.INVISIBLE);
-                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
         }
     }
