@@ -24,6 +24,8 @@
             android:backgroundTint="@color/white"
             android:background="@drawable/border_input"
             android:inputType="text"
+            android:iconifiedByDefault="true"
+            android:focusableInTouchMode="false"
             app:defaultQueryHint="@string/hintSearch"/>
 
     </android.support.v7.widget.CardView>

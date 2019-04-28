@@ -23,16 +23,18 @@ public class MovieListViewModel extends BaseViewModel {
     private Integer INITIAL_LOAD_SIZE_HINT = 10;
     private Integer PREFETCH_DISTANCE_VALUE = 10;
     private Integer PAGE_SIZE = 10;
-    protected FilmRepository filmRepository = new FilmRepository();
-    protected FavoriteListRepository favoriteListRepository = new FavoriteListRepository();
-    protected String SERVICE_OR_CONNECTION_ERROR = "Falha ao receber filmes. Verifique a conexão e tente novamente.";
-    protected String FILTER_GENRES = "genres";
-    protected LiveData<PagedList<FilmResponse>> itemPagedList;
-    protected LiveData<PageKeyedDataSource<Integer, FilmResponse>> liveDataSource;
-    protected LiveData<ResponseModel<FilmsResults>> filmsResults;
-    protected MutableLiveData<FilterIDAndPageSize> receiverAPageSizeAndGenreIDService = new MutableLiveData<>();
-    protected MutableLiveData<FilmsResults> fragmentTellerThereIsFilmResults = new MutableLiveData<>();
-    protected MutableLiveData<Boolean> fragmentTellerIsSessionExpired = new MutableLiveData<>();
+    private int ERROR_UNEXPECTED_CODE = 500;
+    private String MESSAGE_ERROR_RECURRENT = "Erro inesperado ao receber filmes. Feche o aplicativo e tente novamente mais tarde";
+    private FilmRepository filmRepository = new FilmRepository();
+    private FavoriteListRepository favoriteListRepository = new FavoriteListRepository();
+    private String SERVICE_OR_CONNECTION_ERROR = "Falha ao receber filmes. Verifique a conexão e tente novamente.";
+    private String FILTER_GENRES = "genres";
+    private LiveData<PagedList<FilmResponse>> itemPagedList;
+    private LiveData<PageKeyedDataSource<Integer, FilmResponse>> liveDataSource;
+    private LiveData<ResponseModel<FilmsResults>> filmsResults;
+    private MutableLiveData<FilterIDAndPageSize> receiverAPageSizeAndGenreIDService = new MutableLiveData<>();
+    private MutableLiveData<FilmsResults> fragmentTellerThereIsFilmResults = new MutableLiveData<>();
+    private MutableLiveData<Boolean> fragmentTellerIsSessionExpired = new MutableLiveData<>();
     private String genreID;
 
     public MutableLiveData<Boolean> getFragmentTellerIsSessionExpired() {
@@ -66,17 +68,19 @@ public class MovieListViewModel extends BaseViewModel {
         }
     };
 
-    protected Observer<ResponseModel<FilmsResults>> filmsResultsObserver = new Observer<ResponseModel<FilmsResults>>() {
+    private Observer<ResponseModel<FilmsResults>> filmsResultsObserver = new Observer<ResponseModel<FilmsResults>>() {
         @Override
         public void onChanged(@Nullable ResponseModel<FilmsResults> responseModel) {
             if (responseModel != null) {
                 if (responseModel.getCode() == SUCCESS_CODE) {
-                        FilterIDAndPageSize filterIDAndPageSize = new FilterIDAndPageSize(responseModel.getResponse().getTotal_pages(),
-                                MovieListViewModel.this.genreID);
-                        receiverAPageSizeAndGenreIDService.setValue(filterIDAndPageSize);
-                        fragmentTellerThereIsFilmResults.setValue(responseModel.getResponse());
+                    FilterIDAndPageSize filterIDAndPageSize = new FilterIDAndPageSize(responseModel.getResponse().getTotal_pages(),
+                            MovieListViewModel.this.genreID);
+                    receiverAPageSizeAndGenreIDService.setValue(filterIDAndPageSize);
+                    fragmentTellerThereIsFilmResults.setValue(responseModel.getResponse());
                 } else if (responseModel.getCode() == SESSION_EXPIRED_CODE) {
                     fragmentTellerIsSessionExpired.setValue(true);
+                } else if (responseModel.getCode() == ERROR_UNEXPECTED_CODE) {
+                        isErrorMessageForToast.setValue(MESSAGE_ERROR_RECURRENT);
                 }
             } else {
                 isErrorMessageForToast.setValue(SERVICE_OR_CONNECTION_ERROR);
@@ -84,7 +88,7 @@ public class MovieListViewModel extends BaseViewModel {
         }
     };
 
-    protected void setupObserversForever() {
+    private void setupObserversForever() {
         filmRepository.getViewModelTellerIsSessionExpiredPagination().observeForever(isSessionExpiredPaginationObserver);
         filmRepository.getThereIsPaginationError().observeForever(thereIsPaginationErrorObserve);
         receiverAPageSizeAndGenreIDService.observeForever(receiverAPageSizeAndGenreIDServiceObserver);
@@ -125,8 +129,8 @@ public class MovieListViewModel extends BaseViewModel {
                 && receiverAPageSizeAndGenreIDService != null
                 && filmRepository.getViewModelTellerIsSessionExpiredPagination() != null
                 && favoriteListRepository.getViewModelTellerIsSessionExpired() != null
-        && getAddFavoriteFilm() != null
-        && getRemoveFavoriteFilm() != null) {
+                && getAddFavoriteFilm() != null
+                && getRemoveFavoriteFilm() != null) {
             filmsResults.removeObserver(filmsResultsObserver);
             filmRepository.getThereIsPaginationError().removeObserver(thereIsPaginationErrorObserve);
             receiverAPageSizeAndGenreIDService.removeObserver(receiverAPageSizeAndGenreIDServiceObserver);

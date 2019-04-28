@@ -1,5 +1,6 @@
 package br.com.estagio.oletrainning.zup.otmovies.ui.home.fragments.movieList;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.FrameLayout;

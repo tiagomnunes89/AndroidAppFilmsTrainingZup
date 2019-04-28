@@ -5,7 +5,9 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.arch.paging.PagedList;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.Gravity;
@@ -32,7 +34,7 @@ import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonFilmID;
 import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonGenreID;
 import br.com.estagio.oletrainning.zup.otmovies.ui.singleton.SingletonTotalResults;
 
-public class MovieListFragment extends BaseFragment {
+public class MovieListFragment extends BaseFragment{
 
     private MovieListViewModel movieListViewModel;
     private MovieListViewHolder movieListViewHolder;
@@ -86,7 +88,6 @@ public class MovieListFragment extends BaseFragment {
         movieListViewModel.getIsLoading().observe(this, progressBarObserver);
         movieListViewModel.getFragmentTellerThereIsFilmResults().observe(this, homeTellerThereIsFilmResultsObserver);
         movieListViewModel.getIsErrorMessageForToast().observe(this, isErrorMessageForToastObserver);
-
     }
 
     private Observer<String> isSuccessMessageForToastObserver = new Observer<String>() {

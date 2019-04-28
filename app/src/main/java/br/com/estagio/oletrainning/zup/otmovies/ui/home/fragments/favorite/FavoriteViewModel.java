@@ -22,6 +22,8 @@ public class FavoriteViewModel extends BaseViewModel {
     private final static Integer INITIAL_LOAD_SIZE_HINT = 10;
     private final static Integer PREFETCH_DISTANCE_VALUE = 10;
     private final static Integer PAGE_SIZE = 5;
+    private int ERROR_UNEXPECTED_CODE = 500;
+    private String MESSAGE_ERROR_RECURRENT = "Erro inesperado ao receber filmes. Feche o aplicativo e tente novamente mais tarde";
     private FavoriteListRepository favoriteListRepository = new FavoriteListRepository();
     private final static String SERVICE_OR_CONNECTION_ERROR = "Falha ao receber filmes. Verifique a conexão e tente novamente.";
     private LiveData<PagedList<FilmResponse>> itemPagedList;
@@ -82,6 +84,8 @@ public class FavoriteViewModel extends BaseViewModel {
                     }
                 } else if (responseModel.getCode() == SESSION_EXPIRED_CODE) {
                     fragmentTellerIsSessionExpired.setValue(true);
+                } else if (responseModel.getCode() == ERROR_UNEXPECTED_CODE) {
+                        isErrorMessageForToast.setValue(MESSAGE_ERROR_RECURRENT);
                 }
             } else {
                 isErrorMessageForToast.setValue(SERVICE_OR_CONNECTION_ERROR);

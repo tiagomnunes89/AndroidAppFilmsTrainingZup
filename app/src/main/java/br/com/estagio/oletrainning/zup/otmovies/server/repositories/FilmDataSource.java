@@ -24,7 +24,7 @@ public class FilmDataSource extends PageKeyedDataSource<Integer, FilmResponse> {
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, FilmResponse> callback) {
         try {
-            requestDelay.sleep(5000);
+            requestDelay.sleep(1500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

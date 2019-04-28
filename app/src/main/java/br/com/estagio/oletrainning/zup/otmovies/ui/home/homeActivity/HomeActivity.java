@@ -133,10 +133,9 @@ public class HomeActivity extends BaseActivity
         switch (item.getItemId()) {
             case R.id.navigation_home:
                 pushFragments(TAG_FRAGMENT_HOME, getHome());
-
                 break;
             case R.id.navigation_favorite:
-                pushFragments(TAG_FRAGMENT_FAVORITE,new FavoriteFragment());
+                pushFragments(TAG_FRAGMENT_FAVORITE, getFavorite());
                 break;
             case R.id.navigation_search:
                 pushFragments(TAG_FRAGMENT_SEARCH, getSearch());

@@ -32,6 +32,8 @@ public class MovieDetailsViewModel extends BaseViewModel {
     private Integer INITIAL_LOAD_SIZE_HINT = 10;
     private Integer PREFETCH_DISTANCE_VALUE = 10;
     private Integer PAGE_SIZE = 10;
+    private int ERROR_UNEXPECTED_CODE = 500;
+    private String MESSAGE_ERROR_RECURRENT = "Erro inesperado ao receber filmes. Feche o aplicativo e tente novamente mais tarde";
 
     private MutableLiveData<Boolean> activityTellerIsSessionExpired = new MutableLiveData<>();
 
@@ -88,7 +90,7 @@ public class MovieDetailsViewModel extends BaseViewModel {
         public void onChanged(Integer pageSize) {
             FilmDataSourceFactory itemDataSourceFactory =
                     new FilmDataSourceFactory(pageSize,
-                            String.valueOf(SingletonFilmID.INSTANCE.getID()),FILTER_SIMILARITY);
+                            String.valueOf(SingletonFilmID.INSTANCE.getID()), FILTER_SIMILARITY);
             liveDataSource = itemDataSourceFactory.getItemLiveDataSource();
             PagedList.Config config =
                     (new PagedList.Config.Builder())
@@ -108,11 +110,13 @@ public class MovieDetailsViewModel extends BaseViewModel {
                 if (responseModel.getCode() == SUCCESS_CODE) {
                     receiverPageSizeService.setValue(responseModel.getResponse().getTotal_results());
                     activityTellerThereIsFilmResults.setValue(responseModel.getResponse());
-                    if(responseModel.getResponse().getTotal_results() == 0){
+                    if (responseModel.getResponse().getTotal_results() == 0) {
                         similarMoviesListEmpty.setValue(true);
-                    }else {
+                    } else {
                         similarMoviesListEmpty.setValue(false);
                     }
+                } else if (responseModel.getCode() == ERROR_UNEXPECTED_CODE) {
+                    isErrorMessageForToast.setValue(MESSAGE_ERROR_RECURRENT);
                 }
             } else {
                 isErrorMessageForToast.setValue(SERVICE_OR_CONNECTION_ERROR);
@@ -120,7 +124,7 @@ public class MovieDetailsViewModel extends BaseViewModel {
         }
     };
 
-    private void setupObserversForever(){
+    private void setupObserversForever() {
         filmRepository.getViewModelTellerIsSessionExpiredPagination().observeForever(isSessionExpiredPaginationObserver);
         filmRepository.getThereIsPaginationError().observeForever(thereIsPaginationErrorObserve);
         receiverPageSizeService.observeForever(receiverPageSizeServiceObserver);
@@ -129,16 +133,14 @@ public class MovieDetailsViewModel extends BaseViewModel {
     public void executeServiceGetFilmResults(String page, Integer filmID) {
         isLoading.setValue(true);
         setupObserversForever();
-
-            filmsResults = filmRepository.getFilmsResults(page, String.valueOf(filmID),FILTER_SIMILARITY);
-
+        filmsResults = filmRepository.getFilmsResults(page, String.valueOf(filmID), FILTER_SIMILARITY);
         filmsResults.observeForever(filmsResultsObserver);
     }
 
     private Observer<ErrorMessage> thereIsPaginationErrorObserve = new Observer<ErrorMessage>() {
         @Override
         public void onChanged(@Nullable ErrorMessage errorMessage) {
-            if(errorMessage != null){
+            if (errorMessage != null) {
                 isErrorMessageForToast.setValue(errorMessage.getMessage());
             }
         }
@@ -147,7 +149,7 @@ public class MovieDetailsViewModel extends BaseViewModel {
     private Observer<Boolean> isSessionExpiredPaginationObserver = new Observer<Boolean>() {
         @Override
         public void onChanged(Boolean isSessionExpired) {
-            if(isSessionExpired){
+            if (isSessionExpired) {
                 activityTellerIsSessionExpired.setValue(true);
             }
         }
@@ -157,10 +159,10 @@ public class MovieDetailsViewModel extends BaseViewModel {
     public void removeObserver() {
         super.removeObserver();
         if (filmsResults != null && filmRepository.getThereIsPaginationError() != null
-                &&  receiverPageSizeService != null
+                && receiverPageSizeService != null
                 && filmRepository.getViewModelTellerIsSessionExpiredPagination() != null
                 && getAddFavoriteFilm() != null
-                && getRemoveFavoriteFilm() != null)  {
+                && getRemoveFavoriteFilm() != null) {
             filmsResults.removeObserver(filmsResultsObserver);
             filmRepository.getThereIsPaginationError().removeObserver(thereIsPaginationErrorObserve);
             receiverPageSizeService.removeObserver(receiverPageSizeServiceObserver);

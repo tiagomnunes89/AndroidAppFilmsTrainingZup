@@ -25,6 +25,8 @@ public class SearchViewModel extends BaseViewModel {
     private Integer PAGE_SIZE = 10;
     private Integer INITIAL_LOAD_SIZE_HINT = 5;
     private Integer PREFETCH_DISTANCE_VALUE = 5;
+    private int ERROR_UNEXPECTED_CODE = 500;
+    private String MESSAGE_ERROR_RECURRENT = "Erro inesperado ao receber filmes. Feche o aplicativo e tente novamente mais tarde";
     private FilmRepository filmRepository = new FilmRepository();
     private FavoriteListRepository favoriteListRepository = new FavoriteListRepository();
     private String SERVICE_OR_CONNECTION_ERROR = "Falha ao receber filmes. Verifique a conexão e tente novamente.";
@@ -100,6 +102,8 @@ public class SearchViewModel extends BaseViewModel {
                     }
                 } else if(responseModel.getCode() == SESSION_EXPIRED_CODE){
                     fragmentTellerIsSessionExpired.setValue(true);
+                } else if (responseModel.getCode() == ERROR_UNEXPECTED_CODE) {
+                    isErrorMessageForToast.setValue(MESSAGE_ERROR_RECURRENT);
                 }
             } else {
                 isErrorMessageForToast.setValue(SERVICE_OR_CONNECTION_ERROR);

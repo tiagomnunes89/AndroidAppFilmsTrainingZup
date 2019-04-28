@@ -15,7 +15,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
@@ -66,6 +65,14 @@ public class FavoriteFragment extends BaseFragment implements SwipeRefreshLayout
     }
 
     @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            onRefresh();
+        }
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         if (adapter == null) {
@@ -105,6 +112,7 @@ public class FavoriteFragment extends BaseFragment implements SwipeRefreshLayout
 
     @Override
     public void onRefresh() {
+        favoriteViewHolder.recyclerView.setVisibility(View.GONE);
         if(SingletonEmail.INSTANCE.getEmail() != null){
             new Handler().postDelayed(new Runnable() {
                 @Override public void run() {
@@ -113,6 +121,7 @@ public class FavoriteFragment extends BaseFragment implements SwipeRefreshLayout
                     }
                 }
             }, 3000);
+            adapter.submitList(null);
             favoriteViewModel.executeServiceGetFilmResults(SingletonEmail.INSTANCE.getEmail());
         }
     }
@@ -149,6 +158,7 @@ public class FavoriteFragment extends BaseFragment implements SwipeRefreshLayout
         public void onChanged(@Nullable PagedList<FilmResponse> filmResponses) {
             adapter.submitList(filmResponses);
             favoriteViewModel.getIsLoading().setValue(false);
+            favoriteViewHolder.recyclerView.setVisibility(View.VISIBLE);
         }
     };
 

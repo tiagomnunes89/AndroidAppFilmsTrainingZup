@@ -25,6 +25,7 @@ public class FilmRepository extends BaseRepository {
     private String UNEXPECTED_ERROR_KEY = "erro.inesperado";
     private String UNEXPECTED_ERROR_MESSAGE = "Erro inesperado, tente novamente mais tarde!";
     private int SESSION_EXPIRED_CODE = 401;
+    private int ERROR_UNEXPECTED_CODE = 500;
     private static final int FIRST_PAGE = 1;
     private static final String AMOUNT = "10";
 
@@ -59,7 +60,9 @@ public class FilmRepository extends BaseRepository {
                         } else if (response.code() == SESSION_EXPIRED_CODE){
                             responseModel.setCode(SESSION_EXPIRED_CODE);
                             viewModelTellerIsSessionExpiredPagination.postValue(true);
-                        } else {
+                        } else if (response.code() == ERROR_UNEXPECTED_CODE){
+                            responseModel.setCode(ERROR_UNEXPECTED_CODE);
+                        }else {
                             if(response.errorBody() != null){
                                 responseModel.setErrorMessage(serializeErrorBody(response.errorBody()));
                             } else {
@@ -94,7 +97,9 @@ public class FilmRepository extends BaseRepository {
                         } else if (response.code() == SESSION_EXPIRED_CODE){
                             responseModel.setCode(SESSION_EXPIRED_CODE);
                             viewModelTellerIsSessionExpiredPagination.postValue(true);
-                        } else {
+                        } else if (response.code() == ERROR_UNEXPECTED_CODE){
+                            responseModel.setCode(ERROR_UNEXPECTED_CODE);
+                        }else {
                             if(response.errorBody() != null){
                                 responseModel.setErrorMessage(serializeErrorBody(response.errorBody()));
                             } else {
@@ -128,7 +133,9 @@ public class FilmRepository extends BaseRepository {
                             responseModel.setResponse(response.body());
                         } else if (response.code() == SESSION_EXPIRED_CODE){
                                 viewModelTellerIsSessionExpiredPagination.postValue(true);
-                        } else {
+                        } else if (response.code() == ERROR_UNEXPECTED_CODE){
+                            responseModel.setCode(ERROR_UNEXPECTED_CODE);
+                        }else {
                             if(response.errorBody() != null){
                                 responseModel.setErrorMessage(serializeErrorBody(response.errorBody()));
                             } else {
@@ -161,7 +168,12 @@ public class FilmRepository extends BaseRepository {
                             callback.onResult(response.body().getResults(), null, FIRST_PAGE + 1);
                         } else if (response.code() == SESSION_EXPIRED_CODE){
                                 viewModelTellerIsSessionExpiredPagination.postValue(true);
-                        } else {
+                        } else if (response.code() == ERROR_UNEXPECTED_CODE){
+                            ErrorMessage errorMessage = new ErrorMessage();
+                            errorMessage.setKey(UNEXPECTED_ERROR_KEY);
+                            errorMessage.setMessage(UNEXPECTED_ERROR_MESSAGE);
+                            thereIsPaginationError.setValue(errorMessage);
+                        }else {
                             if(response.errorBody() != null){
                                 ErrorMessage errorMessage = serializeErrorBody(response.errorBody());
                                 thereIsPaginationError.setValue(errorMessage);
@@ -196,7 +208,12 @@ public class FilmRepository extends BaseRepository {
                             callback.onResult(response.body().getResults(),key);
                         } else if (response.code() == SESSION_EXPIRED_CODE){
                                 viewModelTellerIsSessionExpiredPagination.postValue(true);
-                        } else {
+                        } else if (response.code() == ERROR_UNEXPECTED_CODE){
+                            ErrorMessage errorMessage = new ErrorMessage();
+                            errorMessage.setKey(UNEXPECTED_ERROR_KEY);
+                            errorMessage.setMessage(UNEXPECTED_ERROR_MESSAGE);
+                            thereIsPaginationError.setValue(errorMessage);
+                        }else {
                             if(response.errorBody() != null){
                                 ErrorMessage errorMessage = serializeErrorBody(response.errorBody());
                                 thereIsPaginationError.setValue(errorMessage);
@@ -231,7 +248,12 @@ public class FilmRepository extends BaseRepository {
                             callback.onResult(response.body().getResults(), key);
                         } else if (response.code() == SESSION_EXPIRED_CODE){
                                 viewModelTellerIsSessionExpiredPagination.postValue(true);
-                        } else {
+                        } else if (response.code() == ERROR_UNEXPECTED_CODE){
+                            ErrorMessage errorMessage = new ErrorMessage();
+                            errorMessage.setKey(UNEXPECTED_ERROR_KEY);
+                            errorMessage.setMessage(UNEXPECTED_ERROR_MESSAGE);
+                            thereIsPaginationError.setValue(errorMessage);
+                        }else {
                             if(response.errorBody() != null){
                                 ErrorMessage errorMessage = serializeErrorBody(response.errorBody());
                                 thereIsPaginationError.setValue(errorMessage);

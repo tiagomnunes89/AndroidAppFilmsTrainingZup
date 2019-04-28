@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,13 +51,24 @@ public class SearchFragment extends BaseFragment {
 
         searchViewHolder.searchView.setOnQueryTextListener(searchViewListener);
 
+        searchViewHolder.searchView.setIconified(false);
+
         return view;
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            searchViewHolder.searchView.setIconified(false);
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
         searchViewModel.getIsLoading().setValue(false);
+        Log.d("TAG","onPause");
     }
 
     public void onResume() {
@@ -66,6 +78,7 @@ public class SearchFragment extends BaseFragment {
         }
         setupObserversAndListeners();
         setupLayoutManager();
+        Log.d("TAG","onResume");
     }
 
     private void setupLayoutManager() {

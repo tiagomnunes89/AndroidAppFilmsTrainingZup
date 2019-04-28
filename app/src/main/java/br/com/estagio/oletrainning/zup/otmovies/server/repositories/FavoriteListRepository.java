@@ -35,7 +35,7 @@ public class FavoriteListRepository extends BaseRepository {
     }
 
 
-    public FavoriteListRepository(){
+    public FavoriteListRepository() {
         filmService = RetrofitServiceBuilder.buildService(FilmService.class);
         thereIsError = new MutableLiveData<>();
         viewModelTellerIsSessionExpired = new MutableLiveData<>();
@@ -53,19 +53,19 @@ public class FavoriteListRepository extends BaseRepository {
 
     public LiveData<ResponseModel<FilmsResults>> getFavoriteList(String email) {
         final MutableLiveData<ResponseModel<FilmsResults>> data = new MutableLiveData<>();
-        filmService.getFavoriteList(email,FIRST_PAGE,AMOUNT)
+        filmService.getFavoriteList(email, FIRST_PAGE, AMOUNT)
                 .enqueue(new Callback<FilmsResults>() {
                     @Override
                     public void onResponse(Call<FilmsResults> call, Response<FilmsResults> response) {
                         SingletonAccessToken.setAccessTokenReceived(response.headers().get("x-access-token"));
                         ResponseModel<FilmsResults> responseModel = new ResponseModel<>();
-                        if(response.code() == SUCCESS_CODE && response.body() != null){
+                        if (response.code() == SUCCESS_CODE && response.body() != null) {
                             responseModel.setCode(SUCCESS_CODE);
                             responseModel.setResponse(response.body());
-                        } else if (response.code() == SESSION_EXPIRED_CODE){
+                        } else if (response.code() == SESSION_EXPIRED_CODE) {
                             viewModelTellerIsSessionExpired.postValue(true);
                         } else {
-                            if(response.errorBody() != null){
+                            if (response.errorBody() != null) {
                                 responseModel.setErrorMessage(serializeErrorBody(response.errorBody()));
                             } else {
                                 ErrorMessage errorMessage = new ErrorMessage();
@@ -87,20 +87,20 @@ public class FavoriteListRepository extends BaseRepository {
 
     public LiveData<ResponseModel<Void>> addFavoriteFilm(String email, String movieID) {
         final MutableLiveData<ResponseModel<Void>> data = new MutableLiveData<>();
-        filmService.addFavotiteFilm(email,movieID)
+        filmService.addFavotiteFilm(email, movieID)
                 .enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         SingletonAccessToken.setAccessTokenReceived(response.headers().get("x-access-token"));
                         ResponseModel<Void> responseModel = new ResponseModel<>();
-                        if(response.code() == SUCCESS_CODE){
+                        if (response.code() == SUCCESS_CODE) {
                             responseModel.setCode(SUCCESS_CODE);
-                        } else if (response.code() == OTHER_ERROR_CODE){
+                        } else if (response.code() == OTHER_ERROR_CODE) {
                             responseModel.setCode(OTHER_ERROR_CODE);
-                        } else if (response.code() == SESSION_EXPIRED_CODE){
+                        } else if (response.code() == SESSION_EXPIRED_CODE) {
                             viewModelTellerIsSessionExpired.postValue(true);
                         } else {
-                            if(response.errorBody() != null){
+                            if (response.errorBody() != null) {
                                 responseModel.setErrorMessage(serializeErrorBody(response.errorBody()));
                             } else {
                                 ErrorMessage errorMessage = new ErrorMessage();
@@ -111,6 +111,7 @@ public class FavoriteListRepository extends BaseRepository {
                         }
                         data.setValue(responseModel);
                     }
+
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
                         data.setValue(null);
@@ -121,20 +122,20 @@ public class FavoriteListRepository extends BaseRepository {
 
     public LiveData<ResponseModel<Void>> removeFavoriteFilm(String email, String movieID) {
         final MutableLiveData<ResponseModel<Void>> data = new MutableLiveData<>();
-        filmService.removeFavotiteFilm(email,movieID)
+        filmService.removeFavotiteFilm(email, movieID)
                 .enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         SingletonAccessToken.setAccessTokenReceived(response.headers().get("x-access-token"));
                         ResponseModel<Void> responseModel = new ResponseModel<>();
-                        if(response.code() == SUCCESS_CODE){
+                        if (response.code() == SUCCESS_CODE) {
                             responseModel.setCode(SUCCESS_CODE);
-                        } else if (response.code() == OTHER_ERROR_CODE){
+                        } else if (response.code() == OTHER_ERROR_CODE) {
                             responseModel.setCode(OTHER_ERROR_CODE);
-                        } else if (response.code() == SESSION_EXPIRED_CODE){
+                        } else if (response.code() == SESSION_EXPIRED_CODE) {
                             viewModelTellerIsSessionExpired.postValue(true);
                         } else {
-                            if(response.errorBody() != null){
+                            if (response.errorBody() != null) {
                                 responseModel.setErrorMessage(serializeErrorBody(response.errorBody()));
                             } else {
                                 ErrorMessage errorMessage = new ErrorMessage();
@@ -145,6 +146,7 @@ public class FavoriteListRepository extends BaseRepository {
                         }
                         data.setValue(responseModel);
                     }
+
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
                         data.setValue(null);
@@ -153,20 +155,20 @@ public class FavoriteListRepository extends BaseRepository {
         return data;
     }
 
-    public void getFavoritesFilmsResultsLoadInitial (
+    public void getFavoritesFilmsResultsLoadInitial(
             final PageKeyedDataSource.LoadInitialCallback<Integer, FilmResponse> callback,
             String email) {
-        filmService.getFavoriteList(email,FIRST_PAGE,AMOUNT)
+        filmService.getFavoriteList(email, FIRST_PAGE, AMOUNT)
                 .enqueue(new Callback<FilmsResults>() {
                     @Override
                     public void onResponse(Call<FilmsResults> call, Response<FilmsResults> response) {
                         SingletonAccessToken.setAccessTokenReceived(response.headers().get("x-access-token"));
-                        if(response.code() == SUCCESS_CODE && response.body() != null){
+                        if (response.code() == SUCCESS_CODE && response.body() != null) {
                             callback.onResult(response.body().getResults(), null, FIRST_PAGE + 1);
-                        } else if (response.code() == SESSION_EXPIRED_CODE){
+                        } else if (response.code() == SESSION_EXPIRED_CODE) {
                             viewModelTellerIsSessionExpiredPagination.postValue(true);
                         } else {
-                            if(response.errorBody() != null){
+                            if (response.errorBody() != null) {
                                 ErrorMessage errorMessage = serializeErrorBody(response.errorBody());
                                 thereIsPaginationError.setValue(errorMessage);
                             } else {
@@ -187,21 +189,21 @@ public class FavoriteListRepository extends BaseRepository {
                 });
     }
 
-    public void getFilmsResultsLoadBefore (
+    public void getFilmsResultsLoadBefore(
             final PageKeyedDataSource.LoadParams<Integer> params, final PageKeyedDataSource.LoadCallback<Integer,
             FilmResponse> callback, String email) {
-        filmService.getFavoriteList(email,params.key,AMOUNT)
+        filmService.getFavoriteList(email, params.key, AMOUNT)
                 .enqueue(new Callback<FilmsResults>() {
                     @Override
                     public void onResponse(Call<FilmsResults> call, Response<FilmsResults> response) {
                         SingletonAccessToken.setAccessTokenReceived(response.headers().get("x-access-token"));
-                        if(response.code() == SUCCESS_CODE && response.body() != null){
+                        if (response.code() == SUCCESS_CODE && response.body() != null) {
                             Integer key = (params.key > 1) ? params.key - 1 : null;
-                            callback.onResult(response.body().getResults(),key);
-                        } else if (response.code() == SESSION_EXPIRED_CODE){
+                            callback.onResult(response.body().getResults(), key);
+                        } else if (response.code() == SESSION_EXPIRED_CODE) {
                             viewModelTellerIsSessionExpiredPagination.postValue(true);
                         } else {
-                            if(response.errorBody() != null){
+                            if (response.errorBody() != null) {
                                 ErrorMessage errorMessage = serializeErrorBody(response.errorBody());
                                 thereIsPaginationError.setValue(errorMessage);
                             } else {
@@ -225,18 +227,18 @@ public class FavoriteListRepository extends BaseRepository {
     public void getFilmsResultsLoadAfter(
             final Integer PAGE_SIZE, final PageKeyedDataSource.LoadParams<Integer> params,
             final PageKeyedDataSource.LoadCallback<Integer, FilmResponse> callback, String email) {
-        filmService.getFavoriteList(email,params.key,AMOUNT)
+        filmService.getFavoriteList(email, params.key, AMOUNT)
                 .enqueue(new Callback<FilmsResults>() {
                     @Override
                     public void onResponse(Call<FilmsResults> call, Response<FilmsResults> response) {
                         SingletonAccessToken.setAccessTokenReceived(response.headers().get("x-access-token"));
-                        if(response.code() == SUCCESS_CODE && response.body() != null){
-                            Integer key = (params.key < PAGE_SIZE)? params.key + 1 : null;
+                        if (response.code() == SUCCESS_CODE && response.body() != null) {
+                            Integer key = (params.key < PAGE_SIZE) ? params.key + 1 : null;
                             callback.onResult(response.body().getResults(), key);
-                        } else if (response.code() == SESSION_EXPIRED_CODE){
+                        } else if (response.code() == SESSION_EXPIRED_CODE) {
                             viewModelTellerIsSessionExpiredPagination.postValue(true);
                         } else {
-                            if(response.errorBody() != null){
+                            if (response.errorBody() != null) {
                                 ErrorMessage errorMessage = serializeErrorBody(response.errorBody());
                                 thereIsPaginationError.setValue(errorMessage);
                             } else {
@@ -256,6 +258,4 @@ public class FavoriteListRepository extends BaseRepository {
                     }
                 });
     }
-
-
 }
